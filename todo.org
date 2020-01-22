@@ -1,0 +1,32 @@
+* Views
+** TODO Holidays
+** Holiday
+** Visited Place
+** Map
+** Photo
+** Travel gallery
+
+* Stores
+** TODO Holiday
+*** DONE Name
+    CLOSED: [2020-01-22 Wed 11:29]
+*** TODO Header Image
+*** Dates
+**** DONE Date started
+     CLOSED: [2020-01-22 Wed 11:29]
+**** DONE Date ended
+     CLOSED: [2020-01-22 Wed 11:29]
+**** TODO Type convert?
+***** (https://developer.android.com/training/data-storage/room/referencing-data)
+*** TODO Timeline
+*** TODO Companions
+** Timeline
+** Visited Place
+** Photos
+
+* Considerations
+** Accessibility
+** TODO Report sections list
+** Testing
+** Room pojo for object references?
+** Room LiveData for displaying updated data live?

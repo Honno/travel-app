@@ -5,8 +5,6 @@ import android.content.Context;
 import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 
-import static com.google.common.truth.Truth.assertThat;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,9 +13,10 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
+import static com.google.common.truth.Truth.assertThat;
+
 public class HolidayEntityTest {
     private HolidayDao holidayDao;
-    private HolidayEntity holiday;
 
     private AppDatabase db;
 
@@ -36,10 +35,11 @@ public class HolidayEntityTest {
     @Test
     public void writeHolidayAndReadMinimal() throws Exception {
         // TODO Create pre-population code for holidays
-        HolidayEntity holidayEntity = new HolidayEntity();
-        holidayEntity.name = "India";
-        holidayEntity.startDate = LocalDate.of(2019, 05, 26);
-        holidayEntity.endDate = LocalDate.now();
+        HolidayEntity holidayEntity = new HolidayEntity(
+            "India",
+            LocalDate.of(2019, 05, 26),
+            LocalDate.now()
+        );
 
         holidayDao.insert(holidayEntity);
 

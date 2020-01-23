@@ -21,6 +21,14 @@ public class HolidayEntity {
     @ColumnInfo(name = "end_date")
     public LocalDate endDate;
 
+    /**
+     * Minimal constructor. endDate does not need to be specified so parameter doesn't have @NonNull
+     * decorator.
+     *
+     * @param name
+     * @param startDate
+     * @param endDate
+     */
     public HolidayEntity(@NonNull String name, @NonNull LocalDate startDate, LocalDate endDate) {
         this.name = name;
         this.startDate = startDate;

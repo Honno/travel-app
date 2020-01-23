@@ -24,9 +24,14 @@
 ** Visited Place
 ** Photos
 
+
+* Tests
+** TODO LocalDates can be ordered
+
 * Considerations
 ** Accessibility
 ** TODO Report sections list
 ** Testing
 ** Room pojo for object references?
 ** Room LiveData for displaying updated data live?
+** Things are asynchronous dummy

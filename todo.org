@@ -1,5 +1,7 @@
 * Views
 ** TODO Holidays
+*** TODO Name and dates
+*** TODO Header image
 ** Holiday
 ** Visited Place
 ** Map

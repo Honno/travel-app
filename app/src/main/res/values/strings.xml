@@ -2,7 +2,6 @@
     <string name="app_name">Goofin</string>
     <string name="edit_message">Enter a message</string>
     <string name="button_send">Send</string>
-    <string name="title_activity_holidays_scrolling">HolidaysScrollingActivity</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
@@ -93,4 +92,5 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_holidays_overview">Holidays</string>
 </resources>

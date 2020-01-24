@@ -12,16 +12,16 @@ import android.view.View;
 
 import com.example.goofin.R;
 
-public class HolidaysScrollingActivity extends AppCompatActivity {
+public class HolidaysOverviewActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_holidays_scrolling);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setContentView(R.layout.activity_holidays_overview);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -30,4 +30,5 @@ public class HolidaysScrollingActivity extends AppCompatActivity {
             }
         });
     }
+
 }

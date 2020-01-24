@@ -45,9 +45,7 @@ public class HolidayEntityInstrumentedTest {
 
         List<HolidayEntity> holidays = holidayDao.getAll();
 
-        // is equalTo accurate to object's contents
-
-        assertThat(holidays.get(0)).isEqualTo(holidayEntity);
+        assertThat(holidays.get(0).name).isEqualTo(holidayEntity.name);
     }
 
     // TODO Complex holiday tests

@@ -15,7 +15,7 @@ import java.util.List;
 
 import static com.google.common.truth.Truth.assertThat;
 
-public class HolidayEntityTest {
+public class HolidayEntityInstrumentedTest {
     private HolidayDao holidayDao;
 
     private AppDatabase db;

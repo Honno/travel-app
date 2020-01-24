@@ -12,14 +12,9 @@
         <activity
             android:name=".activities.HolidaysScrollingActivity"
             android:label="@string/title_activity_holidays_scrolling"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".DisplayMessageActivity"
-            android:parentActivityName=".MainActivity"></activity>
-        <activity android:name=".MainActivity">
-            <intent-filter>
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

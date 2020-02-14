@@ -8,18 +8,21 @@ import androidx.room.PrimaryKey;
 import java.time.LocalDate;
 
 @Entity(tableName = "holidays")
-public class HolidayEntity {
+public class Holiday {
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    @NonNull
+    private int id;
 
+    @NonNull
     @ColumnInfo(name = "name")
-    public String name;
+    private String name;
 
+    @NonNull
     @ColumnInfo(name = "start_date")
-    public LocalDate startDate;
+    private LocalDate startDate;
 
     @ColumnInfo(name = "end_date")
-    public LocalDate endDate;
+    private LocalDate endDate;
 
     /**
      * Minimal constructor. endDate does not need to be specified so parameter doesn't have @NonNull
@@ -29,9 +32,29 @@ public class HolidayEntity {
      * @param startDate
      * @param endDate
      */
-    public HolidayEntity(@NonNull String name, @NonNull LocalDate startDate, LocalDate endDate) {
+    public Holiday(@NonNull String name, @NonNull LocalDate startDate, LocalDate endDate) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

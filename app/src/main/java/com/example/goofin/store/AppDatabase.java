@@ -10,9 +10,9 @@ import androidx.room.TypeConverters;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {HolidayEntity.class}, version = 1)
+@Database(entities = {Holiday.class}, version = 1, exportSchema = false)
 @TypeConverters({DateConverters.class})
-public abstract class AppDatabase extends RoomDatabase {
+public abstract class AppDatabase extends RoomDatabase { // TODO schema exporting??
 
     public abstract HolidayDao holidayDao();
 
@@ -26,15 +26,15 @@ public abstract class AppDatabase extends RoomDatabase {
     /**
      * ExecutorService that runs database operations asynchronously on a background thread
      */
-    static final ExecutorService databaseWriteExecutor =
+    public static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    static AppDatabase getDatabase(final Context context) {
+    public static AppDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            AppDatabase.class, "app_database")
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "app_database")
+                            // TODO .createFromAsset("database/prepopulated.db") // Used for testing and presentation purposes
                             .build();
                 }
             }

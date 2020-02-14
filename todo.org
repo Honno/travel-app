@@ -4,6 +4,7 @@
 *** TODO Name and dates
 *** TODO Header image
 ** Holiday
+*** TODO Holiday feed adaptor/views/livedata??
 ** Visited Place
 ** Map
 ** Photo

@@ -35,7 +35,6 @@
 
     <include layout="@layout/content_scrolling" />
 
-    <!-- Maybe use later
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -43,7 +42,6 @@
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
-    -->
+        app:srcCompat="@drawable/ic_edit_black_24dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

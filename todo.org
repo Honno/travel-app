@@ -1,3 +1,6 @@
+* Priority for next time
+  DataPickerDialog
+
 * Views
 ** TODO Holidays
 *** TODO [#A] Scrolling capabilities
@@ -5,6 +8,9 @@
 *** TODO Header image
 ** Holiday
 *** TODO Holiday feed adaptor/views/livedata??
+**** TODO [#A] EditHoliday
+***** TODO Toolbar
+****** TODO X button for creation
 ** Visited Place
 ** Map
 ** Photo
@@ -40,6 +46,7 @@
      CLOSED: [2020-02-14 Fri 09:36]
 *** TODO Appropiate views
     SCHEDULED: <2020-02-14 Fri>
+**** Use live data properly across list - holiday - edit
 *** TODO Store prepopulation for app testing
 **** TODO Create prepopulated asset
 
@@ -66,3 +73,4 @@
 ** CardView
    Whats a card
 ** Action toolbar?
+** Clear shitty comments

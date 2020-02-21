@@ -3,7 +3,7 @@ package com.example.goofin.activities;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.goofin.adaptors.HolidaysListAdaptor;
+import com.example.goofin.adaptors.HolidaysAdaptor;
 import com.example.goofin.models.HolidaysViewModel;
 import com.example.goofin.store.Holiday;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -34,13 +34,14 @@ public class HolidaysListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_holidays_list);
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        final HolidaysListAdaptor adaptor= new HolidaysListAdaptor(this);
+        final HolidaysAdaptor adaptor= new HolidaysAdaptor(this); // is this enough??
         recyclerView.setAdapter(adaptor);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Get a new or existing ViewModel from the ViewModelProvider.
         holidaysViewModel = new ViewModelProvider(this).get(HolidaysViewModel.class);
 
+        // TODO remove
         // Add an observer on the LiveData returned by getAlphabetizedWords.
         // The onChanged() method fires when the observed data changes and the activity is
         // in the foreground.
@@ -56,26 +57,24 @@ public class HolidaysListActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HolidaysListActivity.this, HolidayActivity.class);
+                Intent intent = new Intent(HolidaysListActivity.this, CreateOrEditHolidayActivity.class);
+                intent.setAction(Intent.ACTION_INSERT);
                 startActivityForResult(intent, NEW_HOLIDAY_ACTIVITY_REQUEST_CODE);
             }
         });
     }
 
-    /*
-     * When spawned activity is finished, do this.
-     */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == NEW_HOLIDAY_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-//            Holiday holiday = new Holiday(data.getStringExtra(HolidayActivity.NEW_HOLIDAY));
-//            holidaysViewModel.insert(holiday);
-//        } else { // TODO RESULT_CANCELLED
-//            Toast.makeText(
-//                    getApplicationContext(),
-//                    "erm", // TODO something better yeah?
-//                    Toast.LENGTH_LONG).show();
-//        }
+
+        if (requestCode == NEW_HOLIDAY_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            Holiday holiday = (Holiday) data.getSerializableExtra(HolidayActivity.NEW_HOLIDAY);
+            holidaysViewModel.insert(holiday);
+        } else {
+            Toast.makeText(
+                    getApplicationContext(),
+                    getResources().getString(R.string.message_cancelled_create_holiday),
+                    Toast.LENGTH_LONG).show(); // TODO too verbose?
+        }
     }
 }

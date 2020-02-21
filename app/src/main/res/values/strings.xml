@@ -93,5 +93,12 @@
     </string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_holidays_lists">Holidays</string>
-    <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="edit_holiday_name">Holidays</string>
+    <string name="toolbar_title_create_holiday">Create</string>
+    <string name="toolbar_title_edit_holiday">Edit</string>
+    <string name="save_edit">Save changes</string>
+    <string name="message_cancelled_create_holiday">New holiday creation was cancelled</string>
+    <string name="button_create_holiday">Create Holiday</string>
+    <string name="edit_start_date_hint">Start Date</string>
+    <string name="edit_end_date_hint">End Date</string>
 </resources>

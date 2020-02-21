@@ -13,7 +13,7 @@ import com.example.goofin.store.Holiday;
 
 import java.util.List;
 
-public class HolidaysListAdaptor extends RecyclerView.Adapter<HolidaysListAdaptor.HolidaysListViewHolder> {
+public class HolidaysAdaptor extends RecyclerView.Adapter<HolidaysAdaptor.HolidaysListViewHolder> {
 
     /*
      * "RecyclerView.Adapter implementations should subclass ViewHolder and add fields for caching
@@ -32,7 +32,7 @@ public class HolidaysListAdaptor extends RecyclerView.Adapter<HolidaysListAdapto
     private final LayoutInflater layoutInflater;
     private List<Holiday> holidays;
 
-    public HolidaysListAdaptor(Context context) { layoutInflater = LayoutInflater.from(context); }
+    public HolidaysAdaptor(Context context) { layoutInflater = LayoutInflater.from(context); }
 
     @Override
     public HolidaysListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

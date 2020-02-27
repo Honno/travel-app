@@ -3,41 +3,43 @@ package com.example.goofin.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.goofin.R;
+import com.example.goofin.models.HolidaysListViewModel;
 import com.example.goofin.store.Holiday;
 
 public class HolidayActivity extends AppCompatActivity {
 
-    public static final String NEW_HOLIDAY = "NEW_HOLIDAY";
+    public static final String EXTRA_HOLIDAY_ID = "com.example.goofin.EXTRA_HOLIDAY_ID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_holiday);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-//        final Button button = findViewById(R.id.button_save);
-//        button.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View view) {
-//                Intent replyIntent = new Intent();
-//                if (TextUtils.isEmpty(mEditWordView.getText())) {
-//                    setResult(RESULT_CANCELED, replyIntent);
-//                } else {
-//                    String word = mEditWordView.getText().toString();
-//                    replyIntent.putExtra(EXTRA_REPLY, word);
-//                    setResult(RESULT_OK, replyIntent);
-//                }
-//                finish();
-//            }
-//        });
+        HolidaysListViewModel holidaysListViewModel = new ViewModelProvider(this).get(HolidaysListViewModel.class);
+        int holiday_id = getIntent().getExtras().getInt(EXTRA_HOLIDAY_ID);
+        LiveData<Holiday> holidayLiveData = holidaysListViewModel.getHoliday(holiday_id);
+        Log.d("heh", String.valueOf(holiday_id));
+
+        holidayLiveData.observe(this, holiday -> {
+            if (holiday != null)
+                getSupportActionBar().setTitle(holiday.getName());
+        });
+
+        // TODO observe thing for when you edit a holiday
+
     }
 
     @Override

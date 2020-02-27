@@ -99,6 +99,6 @@
     <string name="save_edit">Save changes</string>
     <string name="message_cancelled_create_holiday">New holiday creation was cancelled</string>
     <string name="button_create_holiday">Create Holiday</string>
-    <string name="edit_start_date_hint">Start Date</string>
-    <string name="edit_end_date_hint">End Date</string>
+    <string name="edit_dates_hint">Edit Dates</string>
+
 </resources>

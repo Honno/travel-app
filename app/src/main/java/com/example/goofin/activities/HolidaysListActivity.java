@@ -3,30 +3,25 @@ package com.example.goofin.activities;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.goofin.adaptors.HolidaysAdaptor;
-import com.example.goofin.models.HolidaysViewModel;
-import com.example.goofin.store.Holiday;
+import com.example.goofin.activities.saveholiday.CreateHolidayActivity;
+import com.example.goofin.adaptors.HolidaysListAdaptor;
+import com.example.goofin.models.HolidaysListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.goofin.R;
 
-import java.util.List;
-
 public class HolidaysListActivity extends AppCompatActivity {
 
-    private static final int NEW_HOLIDAY_ACTIVITY_REQUEST_CODE = 1;
+    private static final int NEW_HOLIDAY_REQUEST_CODE = 1;
 
-    private HolidaysViewModel holidaysViewModel;
+    private HolidaysListViewModel holidaysListViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,44 +29,46 @@ public class HolidaysListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_holidays_list);
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        final HolidaysAdaptor adaptor= new HolidaysAdaptor(this); // is this enough??
+        final HolidaysListAdaptor adaptor = new HolidaysListAdaptor(this);
+        adaptor.setOnItemClickListener((holidays, position, v) -> {
+            long holidayId = holidays.get(position).getId();
+
+            Intent intent = new Intent(v.getContext(), HolidayActivity.class);
+            intent.putExtra(HolidayActivity.EXTRA_HOLIDAY_ID, holidayId);
+
+            v.getContext().startActivity(intent);
+        });
         recyclerView.setAdapter(adaptor);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Get a new or existing ViewModel from the ViewModelProvider.
-        holidaysViewModel = new ViewModelProvider(this).get(HolidaysViewModel.class);
+        holidaysListViewModel = new ViewModelProvider(this).get(HolidaysListViewModel.class);
 
-        // TODO remove
-        // Add an observer on the LiveData returned by getAlphabetizedWords.
+        // Add an observer on the LiveData returned by getHolidays
         // The onChanged() method fires when the observed data changes and the activity is
         // in the foreground.
-        holidaysViewModel.getAllHolidays().observe(this, new Observer<List<Holiday>>() {
-            @Override
-            public void onChanged(@Nullable final List<Holiday> holidays) {
-                // Update the cached copy of the words in the adapter.
-                adaptor.setHolidays(holidays);
-            }
-        });
+        holidaysListViewModel.getAllHolidays().observe(this, holidays -> adaptor.setHolidays(holidays));
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(HolidaysListActivity.this, CreateOrEditHolidayActivity.class);
-                intent.setAction(Intent.ACTION_INSERT);
-                startActivityForResult(intent, NEW_HOLIDAY_ACTIVITY_REQUEST_CODE);
-            }
+        fab.setOnClickListener(view -> {
+            Intent intent = new Intent(HolidaysListActivity.this, CreateHolidayActivity.class);
+            intent.setAction(Intent.ACTION_INSERT);
+            startActivityForResult(intent, NEW_HOLIDAY_REQUEST_CODE);
         });
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == NEW_HOLIDAY_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            Holiday holiday = (Holiday) data.getSerializableExtra(HolidayActivity.NEW_HOLIDAY);
-            holidaysViewModel.insert(holiday);
+        if (requestCode == NEW_HOLIDAY_REQUEST_CODE && resultCode == RESULT_OK) {
+            int holidayId = data.getExtras().getInt(HolidayActivity.EXTRA_HOLIDAY_ID);
+
+            Intent intent = new Intent(HolidaysListActivity.this, HolidayActivity.class);
+            intent.putExtra(HolidayActivity.EXTRA_HOLIDAY_ID, holidayId);
+
+            startActivity(intent);
         } else {
-            Toast.makeText(
+            Toast.makeText( // TODO use snackbars?
                     getApplicationContext(),
                     getResources().getString(R.string.message_cancelled_create_holiday),
                     Toast.LENGTH_LONG).show(); // TODO too verbose?

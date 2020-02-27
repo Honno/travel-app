@@ -25,7 +25,9 @@ public class Holiday {
     private LocalDate endDate;
 
     /**
-     * Minimal constructor. endDate does not need to be specified so parameter doesn't have @NonNull
+     * Minimal constructor.
+     *
+     * endDate does not need to be specified so parameter doesn't have @NonNull
      * decorator.
      *
      * @param name

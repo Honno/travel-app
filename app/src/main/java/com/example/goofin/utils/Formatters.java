@@ -7,6 +7,7 @@ import androidx.annotation.RequiresApi;
 import java.time.format.DateTimeFormatter;
 
 public class Formatters {
+    // TODO caching
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static DateTimeFormatter getLocalDateFormatter(){
         return DateTimeFormatter.ofPattern("E, MMM dd yyyy");

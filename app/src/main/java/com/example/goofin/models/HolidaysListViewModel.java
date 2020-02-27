@@ -11,13 +11,13 @@ import com.example.goofin.store.Holiday;
 
 import java.util.List;
 
-public class HolidaysViewModel extends AndroidViewModel {
+public class HolidaysListViewModel extends AndroidViewModel {
 
     private AppRepository appRepository;
 
     private LiveData<List<Holiday>> holidays;
 
-    public HolidaysViewModel(@NonNull Application application) {
+    public HolidaysListViewModel(@NonNull Application application) {
         super(application);
         appRepository = new AppRepository(application);
         holidays = appRepository.getAllHolidays();
@@ -27,7 +27,7 @@ public class HolidaysViewModel extends AndroidViewModel {
         return holidays;
     }
 
-    public void insert(Holiday holiday) {
-        appRepository.insertHoliday(holiday);
+    public LiveData<Holiday> getHoliday(int holiday_id) {
+        return appRepository.getHoliday(holiday_id);
     }
 }

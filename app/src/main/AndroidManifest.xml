@@ -9,17 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.CreateOrEditHolidayActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.HolidayActivity" />
-        </activity>
+        <!-- TODO Intent filters -->
+        <activity android:name=".activities.saveholiday.CreateHolidayActivity" />
         <activity
             android:name=".activities.HolidayActivity"
-            android:label="Holiday">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.HolidaysListActivity" />
+            android:label="Holiday"
+            android:parentActivityName="com.example.goofin.activities.HolidaysListActivity">
         </activity>
         <activity
             android:name=".activities.HolidaysListActivity"

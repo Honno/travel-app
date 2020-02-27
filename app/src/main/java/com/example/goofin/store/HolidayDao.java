@@ -10,8 +10,11 @@ import java.util.List;
 @Dao
 public interface HolidayDao {
     @Insert()
-    void insert(Holiday holiday);
+    Long insert(Holiday holiday);
 
     @Query("SELECT * from holidays ORDER BY start_date ASC")
     LiveData<List<Holiday>> getAll();
+
+    @Query("SELECT * from holidays WHERE id=:holidayId")
+    LiveData<Holiday> getHoliday(int holidayId); // TODO Does it return a single object or a list?
 }

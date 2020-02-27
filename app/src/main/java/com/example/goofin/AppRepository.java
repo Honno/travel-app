@@ -10,6 +10,9 @@ import com.example.goofin.store.Holiday;
 import com.example.goofin.store.HolidayDao;
 
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 public class AppRepository {
     private HolidayDao holidayDao;
@@ -28,9 +31,21 @@ public class AppRepository {
         return holidays;
     }
 
-    public LiveData<Long> insertHolidayAsync(final Holiday holiday) {
-        AppDatabase.databaseWriteExecutor.execute(() -> holidayDao.insert(holiday));
-        return null; // TODO what
+    public long insertHolidayAsync(Holiday holiday) {
+        Callable<Long> insertCallable = () -> holidayDao.insert(holiday);
+        long rowId = 0;
+
+        Future<Long> future = AppDatabase.databaseWriteExecutor.submit(insertCallable);
+
+        try {
+            rowId = future.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return rowId;
     }
 
     public LiveData<Holiday> getHoliday(int holiday_id) {

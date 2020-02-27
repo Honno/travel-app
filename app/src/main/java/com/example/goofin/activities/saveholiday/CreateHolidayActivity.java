@@ -22,7 +22,6 @@ import com.example.goofin.utils.Formatters;
 import java.time.LocalDate;
 
 public class CreateHolidayActivity extends CreateOrEditHolidayActivity {
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,23 +46,27 @@ public class CreateHolidayActivity extends CreateOrEditHolidayActivity {
     @Override
     protected boolean onCreateInsertHolidayButton(Button button) {
         button.setOnClickListener(v -> {
-            // TODO
+            CreateHolidayViewModel createHolidayViewModel = (CreateHolidayViewModel) saveHolidayViewModel;
+
+            long rowId = createHolidayViewModel.insertHolidayAsync();
+
+            Intent replyIntent = new Intent();
+            replyIntent.putExtra(HolidayActivity.EXTRA_HOLIDAY_ID, rowId);
+            setResult(RESULT_OK, replyIntent);
+            finish();
         });
+
         return true;
     }
 }
 
 /* Setup views */
 // TODO cancelled message appears when you dont enter right stuff
-   //     createHolidayButton.setVisibility(View.VISIBLE);
+//     createHolidayButton.setVisibility(View.VISIBLE);
 //        createHolidayButton.setOnClickListener(v -> {
 // TODO for viewsmodel yea?
 
-//            Holiday holiday = new Holiday(
-//                    editName.getText().toString(),
-//                    start_date,
-//                    end_date
-//            );
+
 //
 //            AppRepository appRepository = new AppRepository(getApplication());
 //            appRepository.insertHoliday(holiday);
@@ -94,10 +97,7 @@ public class CreateHolidayActivity extends CreateOrEditHolidayActivity {
 //        AppRepository appRepository = new AppRepository(getApplication());
 //        appRepository.insertHoliday(holiday);
 //
-//        Intent replyIntent = new Intent();
-//        replyIntent.putExtra(HolidayActivity.EXTRA_HOLIDAY_ID, 0);
-//        setResult(RESULT_OK, replyIntent);
-//        finish();
+
 //
 //        // Setup date pickers TODO date ranges
 //        startDateButton.setOnClickListener(view -> {

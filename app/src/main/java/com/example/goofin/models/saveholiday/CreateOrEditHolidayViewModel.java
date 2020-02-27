@@ -14,6 +14,8 @@ import java.time.LocalDate;
 // TODO separate model for edits
 public abstract class CreateOrEditHolidayViewModel extends AndroidViewModel {
 
+    protected final AppRepository appRepository;
+
     protected MutableLiveData<String> name;
     protected MutableLiveData<LocalDate> startDate;
     protected MutableLiveData<LocalDate> endDate;
@@ -24,31 +26,31 @@ public abstract class CreateOrEditHolidayViewModel extends AndroidViewModel {
      */
     public CreateOrEditHolidayViewModel(@NonNull Application application) {
         super(application);
+
+        appRepository = new AppRepository(application);
     }
 
-    public void setName(String name) {
+    public final void setName(String name) {
         this.name.postValue(name);
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public final void setStartDate(LocalDate startDate) {
         this.startDate.postValue(startDate);
     }
 
-    public void setEndDate(LocalDate endDate) {
+    public final void setEndDate(LocalDate endDate) {
         this.endDate.postValue(endDate);
     }
 
-    public LiveData<String> getName(String input) {
+    public final LiveData<String> getName(String input) {
         return name;
     }
 
-    public LiveData<LocalDate> getStartDate() {
+    public final LiveData<LocalDate> getStartDate() {
         return startDate;
     }
 
-    public LiveData<LocalDate> getEndDate() {
+    public final LiveData<LocalDate> getEndDate() {
         return endDate;
     }
-
-
 }

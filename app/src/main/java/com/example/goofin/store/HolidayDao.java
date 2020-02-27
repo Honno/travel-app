@@ -10,7 +10,7 @@ import java.util.List;
 @Dao
 public interface HolidayDao {
     @Insert()
-    Long insert(Holiday holiday);
+    long insert(Holiday holiday);
 
     @Query("SELECT * from holidays ORDER BY start_date ASC")
     LiveData<List<Holiday>> getAll();

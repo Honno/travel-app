@@ -3,20 +3,16 @@ package com.example.goofin.models.saveholiday;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
+import com.example.goofin.models.HolidayBaseViewModel;
 import com.example.goofin.store.Holiday;
 
-public class CreateHolidayViewModel extends CreateOrEditHolidayViewModel {
+public class CreateHolidayViewModel extends HolidayBaseViewModel {
     public CreateHolidayViewModel(@NonNull Application application) {
         super(application);
-
-        name = new MutableLiveData<>();
-        startDate = new MutableLiveData<>();
-        endDate = new MutableLiveData<>();
     }
 
+    // TODO make this an observable
     public long insertHolidayAsync() {
         Holiday holiday = new Holiday(
                 name.getValue(),

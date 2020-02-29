@@ -16,5 +16,5 @@ public interface HolidayDao {
     LiveData<List<Holiday>> getAll();
 
     @Query("SELECT * from holidays WHERE id=:holidayId")
-    LiveData<Holiday> getHoliday(int holidayId); // TODO Does it return a single object or a list?
+    LiveData<Holiday> getHoliday(long holidayId);
 }

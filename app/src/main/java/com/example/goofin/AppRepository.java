@@ -48,7 +48,7 @@ public class AppRepository {
         return rowId;
     }
 
-    public LiveData<Holiday> getHoliday(int holiday_id) {
-        return holidayDao.getHoliday(holiday_id);
+    public LiveData<Holiday> getHoliday(long holidayId) {
+        return holidayDao.getHoliday(holidayId);
     }
 }

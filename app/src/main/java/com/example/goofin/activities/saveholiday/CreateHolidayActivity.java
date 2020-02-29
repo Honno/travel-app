@@ -3,21 +3,16 @@ package com.example.goofin.activities.saveholiday;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.goofin.AppRepository;
 import com.example.goofin.R;
 import com.example.goofin.activities.HolidayActivity;
 import com.example.goofin.models.saveholiday.CreateHolidayViewModel;
-import com.example.goofin.models.saveholiday.CreateOrEditHolidayViewModel;
-import com.example.goofin.store.Holiday;
-import com.example.goofin.utils.Formatters;
+import com.example.goofin.models.HolidayBaseViewModel;
 
 import java.time.LocalDate;
 
@@ -30,7 +25,7 @@ public class CreateHolidayActivity extends CreateOrEditHolidayActivity {
     }
 
     @Override
-    protected CreateOrEditHolidayViewModel getViewModel() {
+    protected HolidayBaseViewModel getViewModel() {
         return new ViewModelProvider(this).get(CreateHolidayViewModel.class);
     }
 

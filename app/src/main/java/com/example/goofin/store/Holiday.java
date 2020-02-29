@@ -11,7 +11,7 @@ import java.time.LocalDate;
 public class Holiday {
     @PrimaryKey(autoGenerate = true)
     @NonNull
-    private int id;
+    private long id;
 
     @NonNull
     @ColumnInfo(name = "name")
@@ -44,7 +44,7 @@ public class Holiday {
         return name;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -56,7 +56,7 @@ public class Holiday {
         return endDate;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 }

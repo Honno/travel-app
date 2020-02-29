@@ -4,7 +4,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.util.Pair;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.goofin.R;
+import com.example.goofin.models.HolidayBaseViewModel;
 import com.example.goofin.models.saveholiday.CreateOrEditHolidayViewModel;
 import com.example.goofin.utils.Converters;
 import com.example.goofin.utils.Formatters;
@@ -62,7 +62,7 @@ abstract class CreateOrEditHolidayActivity extends AppCompatActivity {
         // Add date picker to edit date button
         editDateButton.setOnClickListener(view -> {
             androidx.fragment.app.FragmentManager fragmentManager = this.getSupportFragmentManager();
-            datePicker.show(fragmentManager, "temp");
+            datePicker.show(fragmentManager, "temp"); // TODO appropriate tag name
         });
 
         // Update model with edit text fields

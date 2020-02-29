@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import com.example.goofin.models.HolidayBaseViewModel;
 import com.example.goofin.store.Holiday;
 
-public class CreateHolidayViewModel extends HolidayBaseViewModel {
+public class CreateHolidayViewModel extends CreateOrEditHolidayViewModel {
     public CreateHolidayViewModel(@NonNull Application application) {
         super(application);
     }

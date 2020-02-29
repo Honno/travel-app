@@ -13,6 +13,7 @@ import com.example.goofin.R;
 import com.example.goofin.activities.HolidayActivity;
 import com.example.goofin.models.saveholiday.CreateHolidayViewModel;
 import com.example.goofin.models.HolidayBaseViewModel;
+import com.example.goofin.models.saveholiday.CreateOrEditHolidayViewModel;
 
 import java.time.LocalDate;
 
@@ -25,7 +26,7 @@ public class CreateHolidayActivity extends CreateOrEditHolidayActivity {
     }
 
     @Override
-    protected HolidayBaseViewModel getViewModel() {
+    protected CreateOrEditHolidayViewModel getViewModel() {
         return new ViewModelProvider(this).get(CreateHolidayViewModel.class);
     }
 

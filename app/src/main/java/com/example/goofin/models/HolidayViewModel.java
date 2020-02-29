@@ -12,7 +12,7 @@ import com.example.goofin.store.Holiday;
 
 public class HolidayViewModel extends HolidayBaseViewModel {
 
-    protected HolidayViewModel(@NonNull Application application, long holidayId) {
+    public HolidayViewModel(@NonNull Application application, long holidayId) {
         super(application, holidayId);
     }
 }

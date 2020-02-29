@@ -2,17 +2,13 @@ package com.example.goofin.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.NavUtils;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 
 import com.example.goofin.R;
-import com.example.goofin.models.HolidaysListViewModel;
-import com.example.goofin.store.Holiday;
+import com.example.goofin.models.HolidayViewModel;
+import com.example.goofin.factories.HolidayViewModelFactory;
 
 public class HolidayActivity extends AppCompatActivity {
 
@@ -23,33 +19,19 @@ public class HolidayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_holiday);
 
+        /* Setup view model */
+        long holidayId = getIntent().getExtras().getLong(EXTRA_HOLIDAY_ID); // TODO enforce this extra
+
+        HolidayViewModelFactory holidayViewModelFactory = new HolidayViewModelFactory(this.getApplication(), holidayId);
+        HolidayViewModel holidayViewModel = new ViewModelProvider(this, holidayViewModelFactory).get(HolidayViewModel.class);
+
+        /* Setup toolbar */
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        holidayViewModel.getName().observe(this, name -> getSupportActionBar().setTitle(name));
 
-        HolidaysListViewModel holidaysListViewModel = new ViewModelProvider(this).get(HolidaysListViewModel.class);
-        int holiday_id = getIntent().getExtras().getInt(EXTRA_HOLIDAY_ID);
-        LiveData<Holiday> holidayLiveData = holidaysListViewModel.getHoliday(holiday_id);
-        Log.d("heh", String.valueOf(holiday_id));
-
-        holidayLiveData.observe(this, holiday -> {
-            if (holiday != null)
-                getSupportActionBar().setTitle(holiday.getName());
-        });
-
-        // TODO observe thing for when you edit a holiday
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        // TODO dates
     }
 }

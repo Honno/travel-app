@@ -35,12 +35,14 @@ public abstract class HolidayBaseViewModel extends AndroidViewModel {
     protected LiveData<Holiday> holidayObservable;
 
     protected Observer<Holiday> holidayObserver = holiday -> {
-        if (!holiday.getName().equals(name))
-            name.postValue(holiday.getName());
-        if (!holiday.getStartDate().equals(startDate))
-            startDate.postValue(holiday.getEndDate());
-        if (!holiday.getStartDate().equals(endDate))
-            endDate.postValue(holiday.getEndDate());
+        if (holiday != null) {
+            if (!holiday.getName().equals(name.getValue()))
+                name.postValue(holiday.getName());
+            if (!holiday.getStartDate().equals(startDate.getValue()))
+                startDate.postValue(holiday.getEndDate());
+            if (!holiday.getStartDate().equals(endDate.getValue()))
+                endDate.postValue(holiday.getEndDate());
+        }
     };
 
     protected HolidayBaseViewModel(@NonNull Application application, long holidayId) {
@@ -54,9 +56,9 @@ public abstract class HolidayBaseViewModel extends AndroidViewModel {
 
     @Override
     protected void onCleared() {
-        if (holidayObservable != null) {
+        if (holidayObservable != null)
             holidayObservable.removeObserver(holidayObserver);
-        }
+
     }
 
     /* Getters */

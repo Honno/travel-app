@@ -10,12 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <!-- TODO Intent filters -->
-        <activity android:name=".activities.saveholiday.CreateHolidayActivity" />
+        <activity
+            android:name=".activities.saveholiday.CreateHolidayActivity"
+            android:label="Create"
+            android:parentActivityName="com.example.goofin.activities.HolidaysListActivity" />
+        <activity
+            android:name=".activities.saveholiday.EditHolidayActivity"
+            android:label="Edit"
+            android:parentActivityName="com.example.goofin.activities.HolidayActivity" />
         <activity
             android:name=".activities.HolidayActivity"
             android:label="Holiday"
-            android:parentActivityName="com.example.goofin.activities.HolidaysListActivity">
-        </activity>
+            android:parentActivityName="com.example.goofin.activities.HolidaysListActivity"></activity>
         <activity
             android:name=".activities.HolidaysListActivity"
             android:label="@string/title_activity_holidays_lists">

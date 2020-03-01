@@ -3,17 +3,17 @@ package com.example.goofin.models.saveholiday;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 
-import com.example.goofin.models.HolidayBaseViewModel;
-import com.example.goofin.store.Holiday;
+import java.time.LocalDate;
 
-public class EditHolidayViewModel extends HolidayBaseViewModel {
+public class EditHolidayViewModel extends CreateOrEditHolidayViewModel {
+
     public EditHolidayViewModel(@NonNull Application application, long holidayId) {
         super(application, holidayId);
     }
 
     public void updateHoliday() {
-        // TODO
+        appRepository.updateHoliday(makeHoliday());
     }
 }
+

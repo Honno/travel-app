@@ -41,7 +41,7 @@ abstract class CreateOrEditHolidayActivity extends AppCompatActivity {
         datePicker.addOnPositiveButtonClickListener(selection -> {
             saveHolidayViewModel.setStartDate(Converters.fromEpochTimeToLocalDate(selection.first));
             saveHolidayViewModel.setEndDate(Converters.fromEpochTimeToLocalDate(selection.second));
-        });
+        }); // TODO update with model?
 
         /* Views setup */
 
@@ -52,20 +52,18 @@ abstract class CreateOrEditHolidayActivity extends AppCompatActivity {
         final Button editDateButton = findViewById(R.id.edit_dates);
         final Button insertButton = findViewById(R.id.create_holiday);
 
-        // Setup insert button
-        boolean insertButtonVisibility = onCreateInsertHolidayButton(insertButton);
-        if (insertButtonVisibility)
-            insertButton.setVisibility(View.VISIBLE);
-        else
-            insertButton.setVisibility(View.INVISIBLE);
-
-        // Add date picker to edit date button
-        editDateButton.setOnClickListener(view -> {
-            androidx.fragment.app.FragmentManager fragmentManager = this.getSupportFragmentManager();
-            datePicker.show(fragmentManager, "temp"); // TODO appropriate tag name
+        // Update fields with the model
+        saveHolidayViewModel.getName().observe(this, nameView::setText);
+        saveHolidayViewModel.getStartDate().observe(this, startDate -> {
+            String dataString = startDate.format(Formatters.getLocalDateFormatter());
+            startDateView.setText(dataString);
+        });
+        saveHolidayViewModel.getEndDate().observe(this, endDate -> {
+            String dataString = endDate.format(Formatters.getLocalDateFormatter());
+            endDateView.setText(dataString);
         });
 
-        // Update model with edit text fields
+        // Update model with edit text views
         nameView.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -79,15 +77,20 @@ abstract class CreateOrEditHolidayActivity extends AppCompatActivity {
             }
         });
 
-        // Update fields with the model
-        saveHolidayViewModel.getStartDate().observe(this, startDate -> {
-            String dataString = startDate.format(Formatters.getLocalDateFormatter());
-            startDateView.setText(dataString);
+        // Add date picker to edit date button
+        editDateButton.setOnClickListener(view -> {
+            androidx.fragment.app.FragmentManager fragmentManager = this.getSupportFragmentManager();
+            datePicker.show(fragmentManager, "temp"); // TODO appropriate tag name
         });
-        saveHolidayViewModel.getEndDate().observe(this, endDate -> {
-            String dataString = endDate.format(Formatters.getLocalDateFormatter());
-            endDateView.setText(dataString);
-        });
+
+        // Setup insert button
+        boolean insertButtonVisibility = onCreateInsertHolidayButton(insertButton);
+        if (insertButtonVisibility)
+            insertButton.setVisibility(View.VISIBLE);
+        else
+            insertButton.setVisibility(View.INVISIBLE);
+
+
     }
 
     protected abstract CreateOrEditHolidayViewModel getViewModel();
@@ -105,48 +108,3 @@ abstract class CreateOrEditHolidayActivity extends AppCompatActivity {
 // TODO Create button at bottom when ACTION_INSERT
 // TODO Dialog if you exit but havent save yet
 
-
-//        // Setup date pickers TODO date ranges
-//        startDateButton.setOnClickListener(view -> {
-//                    CalendarDateContainer cal_start_date = new CalendarDateContainer(start_date);
-//
-//                    DatePickerDialog datePickerDialog = new DatePickerDialog(CreateOrEditHolidayActivity.this,
-//                            (view1, year, month, day) -> {
-//                                start_date = CalendarDateContainer.getLocalDateFromCalendarValues(year, month, day);
-//                                startDateButton.setText(start_date.format(Formatters.getLocalDateFormatter()));
-//
-//                                if (start_date.compareTo(end_date) > 0) {
-//                                    end_date = start_date;
-//                                    endDateButton.setText(end_date.format(Formatters.getLocalDateFormatter()));
-//                                }
-//                            }, cal_start_date.getYear(), cal_start_date.getMonth(), cal_start_date.getDay());
-//
-//                    datePickerDialog.show();
-//                }
-//        );
-//
-//        endDateButton.setOnClickListener(view -> { // TODO ui way to say no end date
-//                    CalendarDateContainer cal_end_date = new CalendarDateContainer(end_date);
-//
-//                    DatePickerDialog datePickerDialog = new DatePickerDialog(CreateOrEditHolidayActivity.this,
-//                            (view1, year, month, day) -> {
-//                                end_date = CalendarDateContainer.getLocalDateFromCalendarValues(year, month, day);
-//                                endDateButton.setText(end_date.format(Formatters.getLocalDateFormatter()));
-//                            }, cal_end_date.getYear(), cal_end_date.getMonth(), cal_end_date.getDay());
-//                    // datePickerDialog.getDatePicker().setMinDate(start_date.toEpochDay()); // TODO min dates
-//
-//                    datePickerDialog.show();
-//                }
-//        );
-
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        if (getIntent().getAction().equals(ACTION_EDIT)) {
-//            MenuInflater inflater = getMenuInflater();
-//            inflater.inflate(R.menu.menu_edit_holiday, menu);
-//            return true;
-//        } else {
-//            return false; // i.e. don't create options menu
-//        }
-//    }

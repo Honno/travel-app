@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -11,9 +12,11 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.goofin.R;
+import com.example.goofin.activities.saveholiday.EditHolidayActivity;
 import com.example.goofin.models.HolidayViewModel;
 import com.example.goofin.factories.HolidayViewModelFactory;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HolidayActivity extends AppCompatActivity {
 
@@ -43,5 +46,14 @@ public class HolidayActivity extends AppCompatActivity {
             toolbarLayout.setTitle(name);
         });
         // TODO dates
+
+        /* Setup views */
+        FloatingActionButton editHolidayButton = findViewById(R.id.fab);
+        editHolidayButton.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), EditHolidayActivity.class);
+            intent.putExtra(EXTRA_HOLIDAY_ID, holidayId);
+
+            startActivity(intent);
+        });
     }
 }

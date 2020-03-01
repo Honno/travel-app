@@ -51,4 +51,8 @@ public class AppRepository {
     public LiveData<Holiday> getHoliday(long holidayId) {
         return holidayDao.getHoliday(holidayId);
     }
+
+    public void updateHoliday(Holiday holiday) {
+        AppDatabase.databaseWriteExecutor.execute(() -> holidayDao.update(holiday));
+    }
 }

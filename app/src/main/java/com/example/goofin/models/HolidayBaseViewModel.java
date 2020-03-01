@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
@@ -32,7 +33,7 @@ public abstract class HolidayBaseViewModel extends AndroidViewModel {
 
     /* When you desire a specific holiday */
 
-    protected LiveData<Holiday> holidayObservable;
+    protected LiveData<Holiday> holiday;
 
     protected Observer<Holiday> holidayObserver = holiday -> {
         if (holiday != null) {
@@ -50,14 +51,15 @@ public abstract class HolidayBaseViewModel extends AndroidViewModel {
 
         appRepository = new AppRepository(application);
 
-        holidayObservable = appRepository.getHoliday(holidayId);
-        holidayObservable.observeForever(holidayObserver);
+        holiday = appRepository.getHoliday(holidayId);
+        holiday.observeForever(holidayObserver);
     }
 
     @Override
     protected void onCleared() {
-        if (holidayObservable != null)
-            holidayObservable.removeObserver(holidayObserver);
+        if (holiday != null)
+            holiday.removeObserver(holidayObserver);
+        super.onCleared();
 
     }
 

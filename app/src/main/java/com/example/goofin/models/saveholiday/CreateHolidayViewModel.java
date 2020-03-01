@@ -14,13 +14,7 @@ public class CreateHolidayViewModel extends CreateOrEditHolidayViewModel {
 
     // TODO make this an observable
     public long insertHolidayAsync() {
-        Holiday holiday = new Holiday(
-                name.getValue(),
-                startDate.getValue(),
-                endDate.getValue()
-        );
-
-        long rowId = appRepository.insertHolidayAsync(holiday);
+        long rowId = appRepository.insertHolidayAsync(makeHoliday());
 
         return rowId;
     }

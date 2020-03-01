@@ -4,13 +4,17 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
 @Dao
 public interface HolidayDao {
-    @Insert()
+    @Insert
     long insert(Holiday holiday);
+
+    @Update
+    void update(Holiday holiday);
 
     @Query("SELECT * from holidays ORDER BY start_date ASC")
     LiveData<List<Holiday>> getAll();

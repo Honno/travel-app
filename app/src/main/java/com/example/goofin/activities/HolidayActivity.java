@@ -5,10 +5,15 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
+import android.view.View;
 
 import com.example.goofin.R;
 import com.example.goofin.models.HolidayViewModel;
 import com.example.goofin.factories.HolidayViewModelFactory;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 public class HolidayActivity extends AppCompatActivity {
 
@@ -30,8 +35,13 @@ public class HolidayActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        holidayViewModel.getName().observe(this, name -> getSupportActionBar().setTitle(name));
-
+        // Update title with changes to the holidays name
+        //   support action bar's setTitle method did not work in observer, so used this solution:
+        //   https://stackoverflow.com/questions/26486730/in-android-app-toolbar-settitle-method-has-no-effect-application-name-is-shown/57635712#57635712
+        CollapsingToolbarLayout toolbarLayout = findViewById(R.id.toolbar_layout);
+        holidayViewModel.getName().observe(this, name -> {
+            toolbarLayout.setTitle(name);
+        });
         // TODO dates
     }
 }

@@ -13,8 +13,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.goofin.R;
@@ -51,7 +49,7 @@ public class HolidaysListActivity extends AppCompatActivity {
         // in the foreground.
         holidaysListViewModel.getAllHolidays().observe(this, holidays -> adaptor.setHolidays(holidays));
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.add_holiday);
         fab.setOnClickListener(view -> {
             Intent intent = new Intent(HolidaysListActivity.this, CreateHolidayActivity.class);
             intent.setAction(Intent.ACTION_INSERT);

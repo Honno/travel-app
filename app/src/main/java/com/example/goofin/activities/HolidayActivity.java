@@ -6,10 +6,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
-import android.view.View;
 
 import com.example.goofin.R;
 import com.example.goofin.activities.saveholiday.EditHolidayActivity;
@@ -21,6 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class HolidayActivity extends AppCompatActivity {
 
     public static final String EXTRA_HOLIDAY_ID = "com.example.goofin.EXTRA_HOLIDAY_ID";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +45,20 @@ public class HolidayActivity extends AppCompatActivity {
         // TODO dates
 
         /* Setup views */
-        FloatingActionButton editHolidayButton = findViewById(R.id.fab);
+        // Edit holiday
+        FloatingActionButton editHolidayButton = findViewById(R.id.edit_holiday);
         editHolidayButton.setOnClickListener(view -> {
             Intent intent = new Intent(view.getContext(), EditHolidayActivity.class);
             intent.putExtra(EXTRA_HOLIDAY_ID, holidayId);
 
             startActivity(intent);
         });
+
+        /* Setup feed fabs */
+        // Reference fabs
+        FloatingActionButton feedMenuButton = findViewById(R.id.feed_menu);
+        // FloatingActionButton addImageNote = findViewById(R.id.add_note);
+        // Listeners
+        feedMenuButton.setOnClickListener(v -> feedMenuButton.setExpanded(!feedMenuButton.isExpanded()));
     }
 }

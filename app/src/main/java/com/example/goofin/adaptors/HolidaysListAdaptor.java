@@ -1,18 +1,14 @@
 package com.example.goofin.adaptors;
 
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.goofin.R;
-import com.example.goofin.activities.HolidayActivity;
 import com.example.goofin.store.Holiday;
 
 import java.util.List;
@@ -59,7 +55,7 @@ public class HolidaysListAdaptor extends RecyclerView.Adapter<HolidaysListAdapto
 
     @Override
     public HolidaysListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = layoutInflater.inflate(R.layout.recyclerview_item, parent, false);
+        View itemView = layoutInflater.inflate(R.layout.recycler_holiday_card_view, parent, false);
         return new HolidaysListViewHolder(itemView);
     }
 

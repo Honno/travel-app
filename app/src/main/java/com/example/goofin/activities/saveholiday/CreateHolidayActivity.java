@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.goofin.R;
 import com.example.goofin.activities.HolidayActivity;
 import com.example.goofin.models.saveholiday.CreateHolidayViewModel;
-import com.example.goofin.models.HolidayBaseViewModel;
 import com.example.goofin.models.saveholiday.CreateOrEditHolidayViewModel;
 
 import java.time.LocalDate;
@@ -33,14 +32,14 @@ public class CreateHolidayActivity extends CreateOrEditHolidayActivity {
     // Setup [ X  Create       ] toolbar
     @Override
     protected void onCreateToolbar(Toolbar toolbar) {
-        toolbar.setNavigationIcon(R.drawable.ic_close_black_24dp);
+        toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(getResources().getString(R.string.toolbar_title_create_holiday));
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
     }
 
     @Override
-    protected boolean onCreateInsertHolidayButton(Button button) {
+    protected boolean onCreateInsertHolidayButton(Button button) { // TODO use extended FAB
         button.setOnClickListener(v -> {
             CreateHolidayViewModel createHolidayViewModel = (CreateHolidayViewModel) saveHolidayViewModel;
 

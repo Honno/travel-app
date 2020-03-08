@@ -30,7 +30,7 @@ public abstract class CreateOrEditHolidayViewModel extends HolidayBaseViewModel 
                 startDate.getValue(),
                 endDate.getValue()
         );
-        holiday.setId(holidayId);
+        holiday.setHolidayId(holidayId);
 
         return holiday;
     }

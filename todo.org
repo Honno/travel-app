@@ -1,80 +1,83 @@
-* Views
-** TODO Holidays
-*** TODO [#A] Scrolling capabilities
-*** TODO Name and dates
-*** TODO Header image
-** Holiday
-*** TODO Holiday feed adaptor/views/livedata??
-**** TODO [#A] EditHoliday
-***** TODO Toolbar
-****** TODO X button for creation
-** Visited Place
-** Map
-** Photo
-** Travel gallery
+* Tasks
+** Note activity
 
-* Stores
-** TODO Holiday
-*** DONE Name
-    CLOSED: [2020-01-22 Wed 11:29]
-*** TODO Header Image
-*** Dates
-**** DONE Date started
+* Old
+** Views
+*** TODO Holidays
+**** TODO [#A] Scrolling capabilities
+**** TODO Name and dates
+**** TODO Header image
+*** Holiday
+**** TODO Holiday feed adaptor/views/livedata??
+***** TODO [#A] EditHoliday
+****** TODO Toolbar
+******* TODO X button for creation
+*** Visited Place
+*** Map
+*** Photo
+*** Travel gallery
+
+** Stores
+*** TODO Holiday
+**** DONE Name
      CLOSED: [2020-01-22 Wed 11:29]
-**** DONE Date ended
-     CLOSED: [2020-01-22 Wed 11:29]
-**** TODO Type convert?
-***** (https://developer.android.com/training/data-storage/room/referencing-data)
-*** TODO Timeline
-*** TODO Companions
-** Timeline
-** Visited Place
-** Photos
+**** TODO Header Image
+**** Dates
+***** DONE Date started
+      CLOSED: [2020-01-22 Wed 11:29]
+***** DONE Date ended
+      CLOSED: [2020-01-22 Wed 11:29]
+***** TODO Type convert?
+****** (https://developer.android.com/training/data-storage/room/referencing-data)
+**** TODO Timeline
+**** TODO Companions
+*** Timeline
+*** Visited Place
+*** Photos
 
-* Functionality
-** TODO Translate db stuff to show in app
-*** DONE Work out how running dbs nicely works
-    CLOSED: [2020-02-14 Fri 09:36]
-**** DONE LiveData
+** Functionality
+*** TODO Translate db stuff to show in app
+**** DONE Work out how running dbs nicely works
      CLOSED: [2020-02-14 Fri 09:36]
-**** DONE Repository
-     CLOSED: [2020-02-14 Fri 09:36]
-**** DONE ViewModel
-     CLOSED: [2020-02-14 Fri 09:36]
-*** TODO Appropiate views
-    SCHEDULED: <2020-02-14 Fri>
-**** Use live data properly across list - holiday - edit
-*** TODO Store prepopulation for app testing
-**** TODO Create prepopulated asset
+***** DONE LiveData
+      CLOSED: [2020-02-14 Fri 09:36]
+***** DONE Repository
+      CLOSED: [2020-02-14 Fri 09:36]
+***** DONE ViewModel
+      CLOSED: [2020-02-14 Fri 09:36]
+**** TODO Appropiate views
+     SCHEDULED: <2020-02-14 Fri>
+***** Use live data properly across list - holiday - edit
+**** TODO Store prepopulation for app testing
+***** TODO Create prepopulated asset
 
-* Tests
-** TODO LocalDates can be ordered
+** Tests
+*** TODO LocalDates can be ordered
 
-
-* Considerations
-** Accessibility
-** [#A] The report
+** Considerations
+*** Accessibility
+*** [#A] The report
    Review what you've done every coding session
-*** TODO Report sections list
-** Testing
-*** TODO BDD tests
-    Use cucumber?
-** Room pojo for object references?
-** Room LiveData for displaying updated data live?
-** Things are asynchronous dummy
-** Tumblr blog intergration
-** Linter
-** ViewModel survival
+**** TODO Report sections list
+*** Testing
+**** TODO BDD tests
+     Use cucumber?
+*** Room pojo for object references?
+*** Room LiveData for displaying updated data live?
+*** Things are asynchronous dummy
+*** Tumblr blog intergration
+*** Linter
+*** ViewModel survival
    https://developer.android.com/topic/libraries/architecture/viewmodel-savedstate
 
-** CardView
+*** CardView
    Whats a card
-** Action toolbar?
-** Clear shitty comments
-** TODO Set API level so no require annotations
-** Common intent for...
-*** TODO Camera
-*** Add contacts
-** TODO Date ranges
-** TODO Data binding?
+*** Action toolbar?
+*** Clear shitty comments
+*** TODO Set API level so no require annotations
+*** Common intent for...
+**** TODO Camera
+**** Add contacts
+*** TODO Date ranges
+*** TODO Data binding?
    https://developer.android.com/topic/libraries/data-binding

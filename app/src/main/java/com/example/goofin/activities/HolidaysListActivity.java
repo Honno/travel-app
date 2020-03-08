@@ -31,7 +31,7 @@ public class HolidaysListActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         final HolidaysListAdaptor adaptor = new HolidaysListAdaptor(this);
         adaptor.setOnItemClickListener((holidays, position, v) -> {
-            long holidayId = holidays.get(position).getId();
+            long holidayId = holidays.get(position).getHolidayId();
 
             Intent intent = new Intent(v.getContext(), HolidayActivity.class);
             intent.putExtra(HolidayActivity.EXTRA_HOLIDAY_ID, holidayId);
@@ -47,7 +47,7 @@ public class HolidaysListActivity extends AppCompatActivity {
         // Add an observer on the LiveData returned by getHolidays
         // The onChanged() method fires when the observed data changes and the activity is
         // in the foreground.
-        holidaysListViewModel.getAllHolidays().observe(this, holidays -> adaptor.setHolidays(holidays));
+        holidaysListViewModel.getAllHolidays().observe(this, adaptor::setHolidays);
 
         FloatingActionButton fab = findViewById(R.id.add_holiday);
         fab.setOnClickListener(view -> {
@@ -71,7 +71,7 @@ public class HolidaysListActivity extends AppCompatActivity {
             Toast.makeText( // TODO use snackbars?
                     getApplicationContext(),
                     getResources().getString(R.string.message_cancelled_create_holiday),
-                    Toast.LENGTH_LONG).show(); // TODO too verbose?
+                    Toast.LENGTH_SHORT).show(); // TODO too verbose?
         }
     }
 }

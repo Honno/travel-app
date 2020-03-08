@@ -97,12 +97,15 @@
     <string name="toolbar_title_create_holiday">Create</string>
     <string name="toolbar_title_edit_holiday">Edit</string>
     <string name="save_edit">Save</string>
-    <string name="message_cancelled_create_holiday">New holiday creation was cancelled</string>
+    <string name="message_cancelled_create_holiday">Holiday creation was cancelled</string>
     <string name="button_create_holiday">Create Holiday</string>
     <string name="edit_dates_hint">Edit Dates</string>
     <string name="edit_holiday_back_dialog_title">Are you sure?</string>
     <string name="edit_holiday_back_dialog_message">Changes made will be lost.</string>
     <string name="edit_holiday_back_dialog_ok">Ok</string>
     <string name="edit_holiday_back_dialog_cancel">Cancel</string>
+    <string name="message_insert_holiday_failed">Holiday creation failed</string>
+    <string name="message_insert_feed_item_cancelled">Feed item creation failed</string>
+    <string name="edit_note">Note</string>
 
 </resources>

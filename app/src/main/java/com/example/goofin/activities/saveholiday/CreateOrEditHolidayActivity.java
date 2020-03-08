@@ -53,7 +53,6 @@ abstract class CreateOrEditHolidayActivity extends AppCompatActivity {
         final Button insertButton = findViewById(R.id.create_holiday);
 
         // Update fields with the model
-        saveHolidayViewModel.getName().observe(this, nameView::setText);
         saveHolidayViewModel.getStartDate().observe(this, startDate -> {
             String dataString = startDate.format(Formatters.getLocalDateFormatter());
             startDateView.setText(dataString);
@@ -83,7 +82,7 @@ abstract class CreateOrEditHolidayActivity extends AppCompatActivity {
             datePicker.show(fragmentManager, "temp"); // TODO appropriate tag name
         });
 
-        // Setup insert button
+        // Setup insert button // TODO make this a material fab thingy
         boolean insertButtonVisibility = onCreateInsertHolidayButton(insertButton);
         if (insertButtonVisibility)
             insertButton.setVisibility(View.VISIBLE);

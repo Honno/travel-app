@@ -10,8 +10,9 @@ import java.time.LocalDate;
 @Entity(tableName = "holidays")
 public class Holiday {
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "holidayId")
     @NonNull
-    private long id;
+    private long holidayId;
 
     @NonNull
     @ColumnInfo(name = "name")
@@ -40,12 +41,17 @@ public class Holiday {
         this.endDate = endDate;
     }
 
-    public String getName() {
-        return name;
+
+    public void setHolidayId(long id) {
+        holidayId = id;
     }
 
-    public long getId() {
-        return id;
+    public long getHolidayId() {
+        return holidayId;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public LocalDate getStartDate() {
@@ -54,9 +60,5 @@ public class Holiday {
 
     public LocalDate getEndDate() {
         return endDate;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 }

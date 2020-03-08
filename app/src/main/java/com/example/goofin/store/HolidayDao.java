@@ -16,9 +16,9 @@ public interface HolidayDao {
     @Update
     void update(Holiday holiday);
 
-    @Query("SELECT * from holidays ORDER BY start_date ASC")
+    @Query("SELECT * FROM holidays ORDER BY start_date ASC")
     LiveData<List<Holiday>> getAll();
 
-    @Query("SELECT * from holidays WHERE id=:holidayId")
+    @Query("SELECT * FROM holidays WHERE holidayId=:holidayId")
     LiveData<Holiday> getHoliday(long holidayId);
 }

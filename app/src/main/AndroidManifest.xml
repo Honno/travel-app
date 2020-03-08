@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <!-- TODO Intent filters -->
+        <activity android:name=".activities.holidayfeed.NoteActivity"
+            android:label="Note"
+            android:parentActivityName=".activities.HolidayActivity" />
         <activity
             android:name=".activities.saveholiday.CreateHolidayActivity"
             android:label="Create"

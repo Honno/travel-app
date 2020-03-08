@@ -7,14 +7,19 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import com.example.goofin.store.holidayfeed.Note;
+import com.example.goofin.store.holidayfeed.NoteDao;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Holiday.class}, version = 1, exportSchema = false)
-@TypeConverters({DateConverters.class})
+@Database(entities = {Holiday.class, Note.class}, version = 1, exportSchema = false)
+@TypeConverters({TimeConverters.class})
 public abstract class AppDatabase extends RoomDatabase { // TODO schema exporting??
 
     public abstract HolidayDao holidayDao();
+
+    public abstract NoteDao noteDao();
 
     /**
      * Singleton to avoid multiple AppDatabases being opened at once

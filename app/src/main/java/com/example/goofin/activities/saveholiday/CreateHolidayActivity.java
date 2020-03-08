@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
@@ -15,6 +16,7 @@ import com.example.goofin.models.saveholiday.CreateHolidayViewModel;
 import com.example.goofin.models.saveholiday.CreateOrEditHolidayViewModel;
 
 import java.time.LocalDate;
+import java.util.concurrent.ExecutionException;
 
 public class CreateHolidayActivity extends CreateOrEditHolidayActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -43,12 +45,19 @@ public class CreateHolidayActivity extends CreateOrEditHolidayActivity {
         button.setOnClickListener(v -> {
             CreateHolidayViewModel createHolidayViewModel = (CreateHolidayViewModel) saveHolidayViewModel;
 
-            long rowId = createHolidayViewModel.insertHolidayAsync();
+            try {
+                long rowId = createHolidayViewModel.insertHolidayAsync();
 
-            Intent replyIntent = new Intent();
-            replyIntent.putExtra(HolidayActivity.EXTRA_HOLIDAY_ID, rowId);
-            setResult(RESULT_OK, replyIntent);
-            finish();
+                Intent replyIntent = new Intent();
+                replyIntent.putExtra(HolidayActivity.EXTRA_HOLIDAY_ID, rowId);
+                setResult(RESULT_OK, replyIntent);
+                finish();
+            } catch (ExecutionException | InterruptedException e) {
+                Toast.makeText(
+                        getApplicationContext(),
+                        getResources().getString(R.string.message_insert_holiday_failed),
+                        Toast.LENGTH_SHORT).show();
+            }
         });
 
         return true;

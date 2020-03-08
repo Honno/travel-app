@@ -42,7 +42,7 @@ public class HolidayViewModel extends HolidayBaseViewModel {
                 .filter(feedItem -> feedItem.getItemType() != type);
 
         List<FeedItem> sortedFeed = Stream.concat(feedWithoutType, itemsOfType.stream())
-                .sorted((item1, item2) -> item1.getCreatedAt().compareTo(item2.getCreatedAt()))
+                .sorted((item1, item2) -> item2.getCreatedAt().compareTo(item1.getCreatedAt()))
                 .collect(Collectors.toList());
 
         feed.setValue(sortedFeed);

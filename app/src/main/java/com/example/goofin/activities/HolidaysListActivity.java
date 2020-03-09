@@ -9,6 +9,7 @@ import com.example.goofin.models.HolidaysListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +29,11 @@ public class HolidaysListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_holidays_list);
 
+        /* Setup toolbar */
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        /* Setup views */
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         final HolidaysListAdaptor adaptor = new HolidaysListAdaptor(this);
         adaptor.setOnItemClickListener((holidays, position, v) -> {

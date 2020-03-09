@@ -8,8 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Formatters {
     // TODO caching
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public static DateTimeFormatter getLocalDateFormatter(){
+    public static DateTimeFormatter getDateFormatter(){
         return DateTimeFormatter.ofPattern("E, MMM dd yyyy");
     }
 

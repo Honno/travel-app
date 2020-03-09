@@ -21,7 +21,6 @@ public class NoteViewHolder extends HolidayFeedViewHolder {
 
     public void onBind(FeedItem feedItem) {
         Note note = (Note) feedItem;
-        Log.d("heh", note.getContents());
         textView.setText(note.getContents());
     }
 }

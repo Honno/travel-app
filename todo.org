@@ -1,5 +1,6 @@
 * Tasks
-** Note activity
+** Photos
+*** Get dir
 
 * Old
 ** Views

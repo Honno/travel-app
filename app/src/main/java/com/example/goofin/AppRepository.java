@@ -4,19 +4,17 @@ import android.app.Application;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.example.goofin.store.AppDatabase;
 import com.example.goofin.store.Holiday;
 import com.example.goofin.store.HolidayDao;
-import com.example.goofin.store.holidayfeed.FeedItem;
+import com.example.goofin.store.holidayfeed.Image;
+import com.example.goofin.store.holidayfeed.ImageDao;
 import com.example.goofin.store.holidayfeed.Note;
 import com.example.goofin.store.holidayfeed.NoteDao;
 
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 public class AppRepository {
 
@@ -25,6 +23,7 @@ public class AppRepository {
     private HolidayDao holidayDao;
 
     private NoteDao noteDao;
+    private ImageDao imageDao;
 
     // Using the application dependency prevents this class to be unit tested
     public AppRepository(Application application) {
@@ -34,6 +33,7 @@ public class AppRepository {
         holidays = holidayDao.getAll();
 
         noteDao = db.noteDao();
+        imageDao = db.imageDao();
     }
 
     public LiveData<List<Holiday>> getAllHolidays() {
@@ -61,7 +61,15 @@ public class AppRepository {
         noteDao.update(note);
     }
 
-    public LiveData<List<Note>> getNotes(long holidayId) {
-        return noteDao.getNotes(holidayId);
+    public LiveData<List<Note>> getNotesFromHoliday(long holidayId) {
+        return noteDao.getNotesFromHoliday(holidayId);
+    }
+
+    public void insertImage(Image image) {
+        AppDatabase.databaseWriteExecutor.execute(() -> imageDao.insert(image));
+    }
+
+    public LiveData<List<Image>> getImagesFromHoliday(long holidayId) {
+        return imageDao.getImagesFromHoliday(holidayId);
     }
 }

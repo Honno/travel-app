@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.goofin.R;
-import com.example.goofin.models.HolidayBaseViewModel;
 import com.example.goofin.models.saveholiday.CreateOrEditHolidayViewModel;
 import com.example.goofin.utils.Converters;
 import com.example.goofin.utils.Formatters;
@@ -54,12 +53,16 @@ abstract class CreateOrEditHolidayActivity extends AppCompatActivity {
 
         // Update fields with the model
         saveHolidayViewModel.getStartDate().observe(this, startDate -> {
-            String dataString = startDate.format(Formatters.getLocalDateFormatter());
-            startDateView.setText(dataString);
+            if (startDate != null) {
+                String dataString = startDate.format(Formatters.getDateFormatter());
+                startDateView.setText(dataString);
+            }
         });
         saveHolidayViewModel.getEndDate().observe(this, endDate -> {
-            String dataString = endDate.format(Formatters.getLocalDateFormatter());
-            endDateView.setText(dataString);
+            if (endDate != null) {
+                String dataString = endDate.format(Formatters.getDateFormatter());
+                endDateView.setText(dataString);
+            }
         });
 
         // Update model with edit text views
@@ -72,6 +75,7 @@ abstract class CreateOrEditHolidayActivity extends AppCompatActivity {
             // Not interested in these interface methods
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
+
             public void afterTextChanged(Editable s) {
             }
         });

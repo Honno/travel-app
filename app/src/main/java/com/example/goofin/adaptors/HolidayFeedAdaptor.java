@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.goofin.R;
 import com.example.goofin.adaptors.feedviewholders.HolidayFeedViewHolder;
+import com.example.goofin.adaptors.feedviewholders.ImageViewHolder;
 import com.example.goofin.adaptors.feedviewholders.NoteViewHolder;
 import com.example.goofin.store.holidayfeed.FeedItem;
 
@@ -20,7 +21,6 @@ import java.util.List;
  * https://stackoverflow.com/a/29394173/5193926
  */
 public class HolidayFeedAdaptor extends RecyclerView.Adapter<HolidayFeedViewHolder> {
-
 
     /* Implement onClick methods in adaptor owner */
 
@@ -44,10 +44,17 @@ public class HolidayFeedAdaptor extends RecyclerView.Adapter<HolidayFeedViewHold
 
     @Override
     public HolidayFeedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = null;
         switch (viewType) {
+
             case R.layout.recycler_note_view:
-                View view = layoutInflater.inflate(R.layout.recycler_note_view, parent, false);
+                view = layoutInflater.inflate(R.layout.recycler_note_view, parent, false);
                 return new NoteViewHolder(view);
+
+            case R.layout.recycler_image_view:
+                view = layoutInflater.inflate(R.layout.recycler_image_view, parent, false);
+                return new ImageViewHolder(view);
+
             default:
                 throw new IllegalStateException();
         }
@@ -60,6 +67,8 @@ public class HolidayFeedAdaptor extends RecyclerView.Adapter<HolidayFeedViewHold
         switch (type) {
             case NOTE:
                 return R.layout.recycler_note_view;
+            case IMAGE:
+                return R.layout.recycler_image_view;
             default:
                 throw new IllegalStateException();
         }

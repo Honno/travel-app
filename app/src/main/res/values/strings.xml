@@ -107,5 +107,6 @@
     <string name="message_insert_holiday_failed">Holiday creation failed</string>
     <string name="message_insert_feed_item_cancelled">Feed item creation failed</string>
     <string name="edit_note">Note</string>
+    <string name="message_unknown_error">Something went wrong!</string>
 
 </resources>

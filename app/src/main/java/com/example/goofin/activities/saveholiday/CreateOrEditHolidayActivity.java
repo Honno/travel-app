@@ -8,6 +8,7 @@ import androidx.core.util.Pair;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -18,8 +19,11 @@ import com.example.goofin.models.saveholiday.CreateOrEditHolidayViewModel;
 import com.example.goofin.utils.Converters;
 import com.example.goofin.utils.Formatters;
 import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.textfield.TextInputLayout;
 
 abstract class CreateOrEditHolidayActivity extends AppCompatActivity {
+    private static final String FRAGMENT_MANAGER_TAG = "DATE_PICKERS";
+
     protected CreateOrEditHolidayViewModel saveHolidayViewModel;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -36,19 +40,24 @@ abstract class CreateOrEditHolidayActivity extends AppCompatActivity {
         onCreateToolbar(toolbar);
 
         /* Date picker setup */
-        MaterialDatePicker<Pair<Long, Long>> datePicker = MaterialDatePicker.Builder.dateRangePicker().build();
-        datePicker.addOnPositiveButtonClickListener(selection -> {
-            saveHolidayViewModel.setStartDate(Converters.fromEpochTimeToLocalDate(selection.first));
-            saveHolidayViewModel.setEndDate(Converters.fromEpochTimeToLocalDate(selection.second));
-        }); // TODO update with model?
+        MaterialDatePicker.Builder<Long> datePickerBuilder = MaterialDatePicker.Builder.datePicker();
+        // Start picker
+        MaterialDatePicker<Long> startDatePicker = datePickerBuilder.build();
+        startDatePicker.addOnPositiveButtonClickListener(selection -> {
+            saveHolidayViewModel.setStartDate(Converters.fromEpochTimeToLocalDate(selection));
+        });
+        // End picker
+        MaterialDatePicker<Long> endDatePicker = datePickerBuilder.build();
+        endDatePicker.addOnPositiveButtonClickListener(selection -> {
+            saveHolidayViewModel.setEndDate(Converters.fromEpochTimeToLocalDate(selection));
+        });
 
         /* Views setup */
 
         // Get references for the desired fields
         final TextView nameView = findViewById(R.id.edit_name);
-        final TextView startDateView = findViewById(R.id.start_date);
-        final TextView endDateView = findViewById(R.id.end_date);
-        final Button editDateButton = findViewById(R.id.edit_dates);
+        final TextView startDateView = findViewById(R.id.edit_start_date);
+        final TextView endDateView = findViewById(R.id.edit_end_date);
         final Button insertButton = findViewById(R.id.create_holiday);
 
         // Update fields with the model
@@ -71,20 +80,16 @@ abstract class CreateOrEditHolidayActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 saveHolidayViewModel.setName(s.toString());
             }
-
             // Not interested in these interface methods
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            public void afterTextChanged(Editable s) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void afterTextChanged(Editable s) { }
         });
 
-        // Add date picker to edit date button
-        editDateButton.setOnClickListener(view -> {
-            androidx.fragment.app.FragmentManager fragmentManager = this.getSupportFragmentManager();
-            datePicker.show(fragmentManager, "temp"); // TODO appropriate tag name
-        });
+        // Add date picker to edit date views
+        startDateView.setInputType(InputType.TYPE_NULL);
+        endDateView.setInputType(InputType.TYPE_NULL);
+        startDateView.setOnClickListener(v -> startDatePicker.show(this.getSupportFragmentManager(), FRAGMENT_MANAGER_TAG));
+        endDateView.setOnClickListener(v -> endDatePicker.show(this.getSupportFragmentManager(), FRAGMENT_MANAGER_TAG));
 
         // Setup insert button // TODO make this a material fab thingy
         boolean insertButtonVisibility = onCreateInsertHolidayButton(insertButton);

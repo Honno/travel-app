@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 public class Formatters {
     // TODO caching
     public static DateTimeFormatter getDateFormatter(){
-        return DateTimeFormatter.ofPattern("E, MMM dd yyyy");
+        return DateTimeFormatter.ofPattern("E, MMM dd");
     }
 
 }

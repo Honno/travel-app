@@ -26,6 +26,7 @@ import com.example.goofin.store.holidayfeed.FeedItem;
 import com.example.goofin.store.holidayfeed.Image;
 import com.example.goofin.store.holidayfeed.Note;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
@@ -74,7 +75,7 @@ public class HolidayActivity extends AppCompatActivity {
         holidayViewModel.getFeed().observe(this, adaptor::setFeed);
 
         /* Setup toolbar */
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        MaterialToolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -82,9 +83,7 @@ public class HolidayActivity extends AppCompatActivity {
         //   support action bar's setTitle method did not work in observer, so used this solution:
         //   https://stackoverflow.com/questions/26486730/in-android-app-toolbar-settitle-method-has-no-effect-application-name-is-shown/57635712#57635712
         CollapsingToolbarLayout toolbarLayout = findViewById(R.id.toolbar_layout);
-        holidayViewModel.getName().observe(this, name -> {
-            toolbarLayout.setTitle(name);
-        });
+        holidayViewModel.getName().observe(this, toolbarLayout::setTitle);
         // TODO dates
 
         /* Setup views */

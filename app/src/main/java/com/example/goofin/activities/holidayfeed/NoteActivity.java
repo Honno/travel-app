@@ -55,8 +55,14 @@ public class NoteActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             Intent replyIntent = new Intent();
-            replyIntent.putExtra(EXTRA_NOTE_CONTENTS, contents);
-            setResult(RESULT_OK, replyIntent);
+
+            if (contents != null) {
+                replyIntent.putExtra(EXTRA_NOTE_CONTENTS, contents);
+                setResult(RESULT_OK, replyIntent);
+            } else {
+                setResult(RESULT_CANCELED, replyIntent);
+            }
+
             finish();
         }
         return true;

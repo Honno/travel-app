@@ -1,5 +1,6 @@
 package com.example.goofin.store.holidayfeed;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 
@@ -15,10 +16,9 @@ public class Note extends PlaceableHolidayItem {
     }
 
     public Note() {
-        contents = "";
+        this.contents = null;
     }
-
-    public Note(String text) {
+    public Note(@NonNull String text) {
         this.contents = text;
     }
 

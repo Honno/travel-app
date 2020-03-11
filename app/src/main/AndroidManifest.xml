@@ -15,20 +15,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.DayNight">
         <!-- TODO Intent filters -->
-        <activity android:name=".activities.holidayfeed.NoteActivity"
-            android:label="Note"
-            android:parentActivityName=".activities.HolidayActivity" />
+        <activity
+            android:name=".activities.holidayfeed.CreateNoteActivity"
+            android:label="@string/title_activity_note_create"
+            android:parentActivityName=".activities.holidayfeed.CreateNoteActivity" />
+        <activity
+            android:name=".activities.holidayfeed.EditNoteActivity"
+            android:label="@string/title_activity_note_edit"
+            android:parentActivityName=".activities.holidayfeed.EditNoteActivity" />
         <activity
             android:name=".activities.saveholiday.CreateHolidayActivity"
-            android:label="Create"
+            android:label="@string/toolbar_title_create_holiday"
             android:parentActivityName="com.example.goofin.activities.HolidaysListActivity" />
         <activity
             android:name=".activities.saveholiday.EditHolidayActivity"
-            android:label="Edit"
+            android:label="@string/toolbar_title_edit_holiday"
             android:parentActivityName="com.example.goofin.activities.HolidayActivity" />
         <activity
             android:name=".activities.HolidayActivity"
-            android:label="Holiday"
+            android:label="@string/title_activity_holiday"
             android:parentActivityName="com.example.goofin.activities.HolidaysListActivity"></activity>
         <activity
             android:name=".activities.HolidaysListActivity"

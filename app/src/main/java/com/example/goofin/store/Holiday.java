@@ -25,6 +25,9 @@ public class Holiday {
     @ColumnInfo(name = "end_date")
     private LocalDate endDate;
 
+    @ColumnInfo(name = "image_id")
+    private long imageId;
+
     /**
      * Minimal constructor.
      *
@@ -54,11 +57,19 @@ public class Holiday {
         return name;
     }
 
+    public long getImageId() {
+        return imageId;
+    }
+
     public LocalDate getStartDate() {
         return startDate;
     }
 
     public LocalDate getEndDate() {
         return endDate;
+    }
+
+    public void setImageId(long imageId) {
+        this.imageId = imageId;
     }
 }

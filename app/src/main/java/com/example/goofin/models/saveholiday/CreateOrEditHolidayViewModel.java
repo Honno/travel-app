@@ -11,7 +11,7 @@ import java.time.LocalDate;
 
 public abstract class CreateOrEditHolidayViewModel extends HolidayBaseViewModel {
 
-    protected long holidayId;
+    protected Long holidayId;
 
     protected CreateOrEditHolidayViewModel(@NonNull Application application) {
         super(application);
@@ -30,7 +30,8 @@ public abstract class CreateOrEditHolidayViewModel extends HolidayBaseViewModel 
                 startDate.getValue(),
                 endDate.getValue()
         );
-        holiday.setHolidayId(holidayId);
+        if (holidayId != null)
+            holiday.setHolidayId(holidayId);
 
         return holiday;
     }

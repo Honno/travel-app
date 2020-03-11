@@ -5,17 +5,17 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
-import com.example.goofin.models.saveholiday.EditHolidayViewModel;
+import com.example.goofin.models.holidayfeed.EditNoteViewModel;
 
-public class EditHolidayViewModelFactory extends BaseViewModelFactory {
-    public EditHolidayViewModelFactory(Application application, long rowId) {
+public class EditNoteViewModelFactory extends BaseViewModelFactory {
+
+    public EditNoteViewModelFactory(Application application, long rowId) {
         super(application, rowId);
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new EditHolidayViewModel(application, rowId);
+        return (T) new EditNoteViewModel(application, rowId);
     }
 }
-

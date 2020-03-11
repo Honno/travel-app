@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.goofin.models.HolidayViewModel;
 
-public class HolidayViewModelFactory extends HolidayBaseViewModelFactory {
+public class HolidayViewModelFactory extends BaseViewModelFactory {
     public HolidayViewModelFactory(Application application, long rowId) {
         super(application, rowId);
     }

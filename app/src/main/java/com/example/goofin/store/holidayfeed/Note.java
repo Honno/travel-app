@@ -7,6 +7,7 @@ import androidx.room.Entity;
 @Entity(tableName = "notes")
 public class Note extends PlaceableHolidayItem {
 
+    @NonNull
     @ColumnInfo(name = "contents")
     private String contents;
 
@@ -15,11 +16,8 @@ public class Note extends PlaceableHolidayItem {
         return TYPES.NOTE;
     }
 
-    public Note() {
-        this.contents = null;
-    }
-    public Note(@NonNull String text) {
-        this.contents = text;
+    public Note(@NonNull String contents) {
+        this.contents = contents;
     }
 
     public String getContents() {

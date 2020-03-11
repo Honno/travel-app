@@ -1,7 +1,6 @@
 package com.example.goofin.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,26 +11,32 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.goofin.BuildConfig;
 import com.example.goofin.R;
-import com.example.goofin.activities.holidayfeed.NoteActivity;
+import com.example.goofin.activities.holidayfeed.CreateNoteActivity;
+import com.example.goofin.activities.holidayfeed.EditNoteActivity;
 import com.example.goofin.activities.saveholiday.EditHolidayActivity;
 import com.example.goofin.adaptors.HolidayFeedAdaptor;
 import com.example.goofin.models.HolidayViewModel;
 import com.example.goofin.factories.HolidayViewModelFactory;
+import com.example.goofin.models.holidayfeed.EditNoteViewModel;
 import com.example.goofin.store.holidayfeed.FeedItem;
 import com.example.goofin.store.holidayfeed.Image;
 import com.example.goofin.store.holidayfeed.Note;
+import com.example.goofin.utils.Formatters;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.Normalizer;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class HolidayActivity extends AppCompatActivity {
@@ -39,10 +44,14 @@ public class HolidayActivity extends AppCompatActivity {
     public static final String EXTRA_HOLIDAY_ID = "com.example.goofin.EXTRA_HOLIDAY_ID";
     private static final int REQUEST_CREATE_NOTE = 1;
     private static final int REQUEST_IMAGE_CAPTURE = 2;
+    private static final int REQUEST_EDIT_NOTE = 3;
 
     private HolidayViewModel holidayViewModel;
 
     private String photoPath;
+
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +62,14 @@ public class HolidayActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         final HolidayFeedAdaptor adaptor = new HolidayFeedAdaptor(this);
         adaptor.setOnItemClickListener((feed, position, view) -> {
-            FeedItem feedItem = feed.get(position);
-            FeedItem.TYPES type = feedItem.getItemType();
+            FeedItem item = feed.get(position);
+            FeedItem.TYPES type = item.getItemType();
             // TODO click listeners
             switch (type) {
                 case NOTE:
-
+                    Intent intent = new Intent(HolidayActivity.this, EditNoteActivity.class);
+                    intent.putExtra(EditNoteActivity.EXTRA_NOTE_ID, item.getItemId());
+                    startActivity(intent);
             }
 
         });
@@ -84,9 +95,19 @@ public class HolidayActivity extends AppCompatActivity {
         //   https://stackoverflow.com/questions/26486730/in-android-app-toolbar-settitle-method-has-no-effect-application-name-is-shown/57635712#57635712
         CollapsingToolbarLayout toolbarLayout = findViewById(R.id.toolbar_layout);
         holidayViewModel.getName().observe(this, toolbarLayout::setTitle);
+
         // TODO dates
 
         /* Setup views */
+        // Update subtitle
+        holidayViewModel.getDates().observe(this, dates -> {
+            if (dates != null) {
+                DateTimeFormatter fmt = Formatters.getDateFormatter();
+                String start = dates.first == null ? "" : dates.first.format(fmt);
+                String end = dates.second == null ? "" : dates.second.format(fmt);
+                toolbar.setSubtitle("hello"); // TODO subtitle with date range
+            }
+        });
         // Edit holiday
         FloatingActionButton editHolidayButton = findViewById(R.id.edit_holiday);
         editHolidayButton.setOnClickListener(view -> {
@@ -134,8 +155,9 @@ public class HolidayActivity extends AppCompatActivity {
         });
         // Creating a note
         addNoteButton.setOnClickListener(v -> {
-            Intent intent = new Intent(HolidayActivity.this, NoteActivity.class);
-            startActivityForResult(intent, REQUEST_CREATE_NOTE);
+            Intent intent = new Intent(HolidayActivity.this, CreateNoteActivity.class);
+            intent.putExtra(EXTRA_HOLIDAY_ID, holidayId);
+            startActivity(intent);
         });
     }
 
@@ -143,16 +165,6 @@ public class HolidayActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
-            case REQUEST_CREATE_NOTE:
-                if (resultCode == RESULT_OK) { // TODO cancel on no message entered
-                    Note note = new Note(data.getStringExtra(NoteActivity.EXTRA_NOTE_CONTENTS));
-                    holidayViewModel.insertNote(note);
-                } else {
-                    Toast.makeText(getApplicationContext(),
-                            R.string.message_insert_feed_item_cancelled,
-                            Toast.LENGTH_SHORT).show();
-                }
-                break;
 
             case REQUEST_IMAGE_CAPTURE:
                 if (resultCode == RESULT_OK) {
@@ -188,5 +200,4 @@ public class HolidayActivity extends AppCompatActivity {
 
         return image;
     }
-
 }

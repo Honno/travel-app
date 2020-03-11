@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -11,13 +12,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.goofin.R;
-import com.example.goofin.activities.HolidayActivity;
-import com.example.goofin.models.saveholiday.EditHolidayViewModel;
+import com.example.goofin.models.holidayfeed.CreateOrEditNoteViewModel;
 
-public class NoteActivity extends AppCompatActivity {
+abstract class CreateOrEditNoteActivity extends AppCompatActivity {
     public static final String EXTRA_NOTE_CONTENTS = "com.example.goofin.EXTRA_NOTE_CONTENTS";
 
-    private String contents;
+    protected CreateOrEditNoteViewModel noteViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,41 +30,31 @@ public class NoteActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        /* Setup viewmodel */
+        noteViewModel = getViewModel();
+
         /* Setup views */
         final TextView textView = findViewById(R.id.edit_note);
-        String extraContents = getIntent().getStringExtra(EXTRA_NOTE_CONTENTS);
-        if (extraContents != null)
-            textView.setText(extraContents);
+        noteViewModel.getContents().observe(this, contents -> {
+            CharSequence text = textView.getText();
+            if ((text == null || text.equals("")) && contents != null) {
+                textView.setText(contents);
+            }
 
+        });
         textView.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                contents = s.toString();
+                noteViewModel.setContents(s.toString());
             }
 
-            @Override
+            // TODO data binding would be much nicer
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
-            @Override
             public void afterTextChanged(Editable s) {
             }
         });
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            Intent replyIntent = new Intent();
-
-            if (contents != null) {
-                replyIntent.putExtra(EXTRA_NOTE_CONTENTS, contents);
-                setResult(RESULT_OK, replyIntent);
-            } else {
-                setResult(RESULT_CANCELED, replyIntent);
-            }
-
-            finish();
-        }
-        return true;
-    }
+    protected abstract CreateOrEditNoteViewModel getViewModel();
 }

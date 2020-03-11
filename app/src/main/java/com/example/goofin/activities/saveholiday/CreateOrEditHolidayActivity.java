@@ -21,6 +21,8 @@ import com.example.goofin.utils.Formatters;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.time.LocalDate;
+
 abstract class CreateOrEditHolidayActivity extends AppCompatActivity {
     private static final String FRAGMENT_MANAGER_TAG = "DATE_PICKERS";
 
@@ -56,11 +58,17 @@ abstract class CreateOrEditHolidayActivity extends AppCompatActivity {
 
         // Get references for the desired fields
         final TextView nameView = findViewById(R.id.edit_name);
-        final TextView startDateView = findViewById(R.id.edit_start_date);
-        final TextView endDateView = findViewById(R.id.edit_end_date);
+        final Button startDateView = findViewById(R.id.edit_start_date);
+        final Button endDateView = findViewById(R.id.edit_end_date);
         final Button insertButton = findViewById(R.id.create_holiday);
 
         // Update fields with the model
+        saveHolidayViewModel.getName().observe(this, name -> {
+            CharSequence text = nameView.getText();
+            if ((text == null || text.equals("")) && name != null) {
+                nameView.setText(name);
+            }
+        });
         saveHolidayViewModel.getStartDate().observe(this, startDate -> {
             if (startDate != null) {
                 String dataString = startDate.format(Formatters.getDateFormatter());
@@ -88,8 +96,8 @@ abstract class CreateOrEditHolidayActivity extends AppCompatActivity {
         // Add date picker to edit date views
         startDateView.setInputType(InputType.TYPE_NULL);
         endDateView.setInputType(InputType.TYPE_NULL);
-        startDateView.setOnClickListener(v -> startDatePicker.show(this.getSupportFragmentManager(), FRAGMENT_MANAGER_TAG));
-        endDateView.setOnClickListener(v -> endDatePicker.show(this.getSupportFragmentManager(), FRAGMENT_MANAGER_TAG));
+        startDateView.setOnClickListener(v -> startDatePicker.showNow(this.getSupportFragmentManager(), FRAGMENT_MANAGER_TAG));
+        endDateView.setOnClickListener(v -> endDatePicker.showNow(this.getSupportFragmentManager(), FRAGMENT_MANAGER_TAG));
 
         // Setup insert button // TODO make this a material fab thingy
         boolean insertButtonVisibility = onCreateInsertHolidayButton(insertButton);
@@ -97,8 +105,6 @@ abstract class CreateOrEditHolidayActivity extends AppCompatActivity {
             insertButton.setVisibility(View.VISIBLE);
         else
             insertButton.setVisibility(View.INVISIBLE);
-
-
     }
 
     protected abstract CreateOrEditHolidayViewModel getViewModel();

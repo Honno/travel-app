@@ -72,4 +72,8 @@ public class AppRepository {
     public LiveData<List<Image>> getImagesFromHoliday(long holidayId) {
         return imageDao.getImagesFromHoliday(holidayId);
     }
+
+    public LiveData<Note> getNote(long noteId) {
+        return noteDao.getNote(noteId);
+    }
 }

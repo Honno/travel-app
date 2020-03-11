@@ -14,7 +14,7 @@ import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(foreignKeys = @ForeignKey(entity = Holiday.class,
         parentColumns = "holiday_id",
-        childColumns = "itemId",
+        childColumns = "item_id",
         onDelete = CASCADE))
 public class FeedItem {
 
@@ -24,7 +24,7 @@ public class FeedItem {
 
     @PrimaryKey(autoGenerate = true)
     @NonNull
-    @ColumnInfo(name = "itemId")
+    @ColumnInfo(name = "item_id")
     private long itemId;
 
     @NonNull

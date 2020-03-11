@@ -19,7 +19,6 @@ import java.time.LocalDate;
 import java.util.concurrent.ExecutionException;
 
 public class CreateHolidayActivity extends CreateOrEditHolidayActivity {
-    @RequiresApi(api = Build.VERSION_CODES.O)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 

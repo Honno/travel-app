@@ -22,4 +22,7 @@ public interface NoteDao {
 
     @Query("SELECT * FROM notes WHERE holiday_id=:holidayId ORDER BY created_at ASC")
     LiveData<List<Note>> getNotesFromHoliday(long holidayId);
+
+    @Query("SELECT * FROM notes WHERE item_id=:noteId")
+    LiveData<Note> getNote(long noteId);
 }

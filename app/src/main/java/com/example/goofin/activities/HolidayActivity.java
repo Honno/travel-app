@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,6 +65,9 @@ public class HolidayActivity extends AppCompatActivity {
         adaptor.setOnItemClickListener((feed, position, view) -> {
             FeedItem item = feed.get(position);
             FeedItem.TYPES type = item.getItemType();
+            Log.d("heh", String.valueOf(feed.size()));
+            Log.d("heh", String.valueOf(position));
+            Log.d("heh", String.valueOf(type));
             // TODO click listeners
             switch (type) {
                 case NOTE:

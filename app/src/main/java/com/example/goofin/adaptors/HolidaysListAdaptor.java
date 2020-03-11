@@ -17,15 +17,16 @@ public class HolidaysListAdaptor extends RecyclerView.Adapter<HolidaysListAdapto
 
     /* Implement onClick methods in adaptor owner */
 
-    private static ClickListener clickListener;
+    private ClickListener clickListener;
 
     public void setOnItemClickListener(ClickListener clickListener) {
-        HolidaysListAdaptor.clickListener = clickListener;
+        this.clickListener = clickListener;
     }
 
     public interface ClickListener {
         void onClick(List<Holiday> holidays, int position, View view);
     }
+
 
     /*
      * "RecyclerView.Adapter implementations should subclass ViewHolder and add fields for caching

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -70,12 +71,14 @@ abstract class CreateOrEditHolidayActivity extends AppCompatActivity {
         });
         saveHolidayViewModel.getStartDate().observe(this, startDate -> {
             if (startDate != null) {
+                Log.d("date", startDate.toString());
                 String dataString = startDate.format(Formatters.getDateFormatter());
                 startDateView.setText(dataString);
             }
         });
         saveHolidayViewModel.getEndDate().observe(this, endDate -> {
             if (endDate != null) {
+                Log.d("date", endDate.toString());
                 String dataString = endDate.format(Formatters.getDateFormatter());
                 endDateView.setText(dataString);
             }

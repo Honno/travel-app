@@ -15,15 +15,8 @@ public class EditNoteViewModel extends CreateOrEditNoteViewModel {
 
     private LiveData<Note> note;
     private Observer<Note> noteObserver = note -> {
-        Log.d("heh", "in");
-        if (note != null) {
-            Log.d("heh", "inner");
-            if (!note.getContents().equals(contents.getValue())) {
-                Log.d("heh", "innest");
-                Log.d("heh", note.getContents());
-                contents.postValue(note.getContents());
-            }
-        }
+        if (note != null)
+            contents.setValue(note.getContents());
     };
 
     public EditNoteViewModel(@NonNull Application application, long noteId) {

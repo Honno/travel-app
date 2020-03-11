@@ -64,10 +64,9 @@ abstract class CreateOrEditHolidayActivity extends AppCompatActivity {
 
         // Update fields with the model
         saveHolidayViewModel.getName().observe(this, name -> {
-            CharSequence text = nameView.getText();
-            if ((text == null || text.equals("")) && name != null) {
+            String text = nameView.getText().toString();
+            if (text.equals(""))
                 nameView.setText(name);
-            }
         });
         saveHolidayViewModel.getStartDate().observe(this, startDate -> {
             if (startDate != null) {

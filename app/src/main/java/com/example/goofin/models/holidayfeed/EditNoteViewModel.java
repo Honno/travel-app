@@ -1,6 +1,7 @@
 package com.example.goofin.models.holidayfeed;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -14,8 +15,12 @@ public class EditNoteViewModel extends CreateOrEditNoteViewModel {
 
     private LiveData<Note> note;
     private Observer<Note> noteObserver = note -> {
+        Log.d("heh", "in");
         if (note != null) {
+            Log.d("heh", "inner");
             if (!note.getContents().equals(contents.getValue())) {
+                Log.d("heh", "innest");
+                Log.d("heh", note.getContents());
                 contents.postValue(note.getContents());
             }
         }
@@ -25,6 +30,7 @@ public class EditNoteViewModel extends CreateOrEditNoteViewModel {
         super(application);
 
         this.noteId = noteId;
+        Log.d("heh", String.valueOf(noteId));
 
         note = appRepository.getNote(noteId);
         note.observeForever(noteObserver);

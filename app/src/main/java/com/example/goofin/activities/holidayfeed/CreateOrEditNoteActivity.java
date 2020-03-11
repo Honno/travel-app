@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,15 +35,13 @@ abstract class CreateOrEditNoteActivity extends AppCompatActivity {
         noteViewModel = getViewModel();
 
         /* Setup views */
-        final TextView textView = findViewById(R.id.edit_note);
+        final EditText editContentsView = findViewById(R.id.edit_note);
         noteViewModel.getContents().observe(this, contents -> {
-            CharSequence text = textView.getText();
-            if ((text == null || text.equals("")) && contents != null) {
-                textView.setText(contents);
-            }
-
+            String text = editContentsView.getText().toString();
+            if (text.equals(""))
+                editContentsView.setText(contents);
         });
-        textView.addTextChangedListener(new TextWatcher() {
+        editContentsView.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 noteViewModel.setContents(s.toString());

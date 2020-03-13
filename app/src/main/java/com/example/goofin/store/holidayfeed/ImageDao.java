@@ -22,4 +22,7 @@ public interface ImageDao {
 
     @Query("SELECT * FROM images WHERE holiday_id=:holidayId ORDER BY created_at ASC")
     LiveData<List<Image>> getImagesFromHoliday(long holidayId);
+
+    @Query("SELECT images.* FROM images, holidays WHERE images.item_id IN (holidays.image_id)")
+    LiveData<List<Image>> getThumbnails();
 }

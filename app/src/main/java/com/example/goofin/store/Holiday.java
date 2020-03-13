@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Entity(tableName = "holidays")
 public class Holiday {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "holidayId")
+    @ColumnInfo(name = "holiday_id")
     @NonNull
     private long holidayId;
 
@@ -26,7 +26,7 @@ public class Holiday {
     private LocalDate endDate;
 
     @ColumnInfo(name = "image_id")
-    private long imageId;
+    private Long imageId;
 
     /**
      * Minimal constructor.
@@ -57,7 +57,7 @@ public class Holiday {
         return name;
     }
 
-    public long getImageId() {
+    public Long getImageId() {
         return imageId;
     }
 
@@ -69,7 +69,7 @@ public class Holiday {
         return endDate;
     }
 
-    public void setImageId(long imageId) {
+    public void setImageId(Long imageId) {
         this.imageId = imageId;
     }
 }

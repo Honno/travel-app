@@ -37,7 +37,7 @@ public class HolidaysListActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         final HolidaysListAdaptor adaptor = new HolidaysListAdaptor(this);
         adaptor.setOnItemClickListener((holidays, position, v) -> {
-            long holidayId = holidays.get(position).getHolidayId();
+            Long holidayId = holidays.get(position).getHolidayId();
 
             Intent intent = new Intent(v.getContext(), HolidayActivity.class);
             intent.putExtra(HolidayActivity.EXTRA_HOLIDAY_ID, holidayId);
@@ -50,10 +50,10 @@ public class HolidaysListActivity extends AppCompatActivity {
         // Get a new or existing ViewModel from the ViewModelProvider.
         holidaysListViewModel = new ViewModelProvider(this).get(HolidaysListViewModel.class);
 
-        // Add an observer on the LiveData returned by getHolidays
         // The onChanged() method fires when the observed data changes and the activity is
         // in the foreground.
         holidaysListViewModel.getAllHolidays().observe(this, adaptor::setHolidays);
+        holidaysListViewModel.getAllHolidayThumbnails().observe(this, adaptor::setThumbnails);
 
         FloatingActionButton fab = findViewById(R.id.add_holiday);
         fab.setOnClickListener(view -> {

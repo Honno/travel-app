@@ -1,17 +1,23 @@
 package com.example.goofin.adaptors;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.goofin.R;
 import com.example.goofin.store.Holiday;
+import com.example.goofin.store.holidayfeed.Image;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class HolidaysListAdaptor extends RecyclerView.Adapter<HolidaysListAdaptor.HolidaysListViewHolder> {
 
@@ -35,20 +41,21 @@ public class HolidaysListAdaptor extends RecyclerView.Adapter<HolidaysListAdapto
      */
     class HolidaysListViewHolder extends RecyclerView.ViewHolder {
         private final TextView nameView;
+        private final ImageView imageView;
 
-        public HolidaysListViewHolder(View itemView) {
+        HolidaysListViewHolder(View itemView) {
             super(itemView);
 
             itemView.setOnClickListener(v -> clickListener.onClick(holidays, getAdapterPosition(), v));
 
             nameView = itemView.findViewById(R.id.text_view);
-            // TODO will need to caching image stuff too
-
+            imageView = itemView.findViewById(R.id.image_view);
         }
     }
 
     private final LayoutInflater layoutInflater;
     private List<Holiday> holidays;
+    private List<Image> thumbnails;
 
     public HolidaysListAdaptor(Context context) {
         layoutInflater = LayoutInflater.from(context);
@@ -63,10 +70,27 @@ public class HolidaysListAdaptor extends RecyclerView.Adapter<HolidaysListAdapto
     @Override
     public void onBindViewHolder(HolidaysListViewHolder viewHolder, int position) {
         if (holidays != null) {
-            Holiday currentHoliday = holidays.get(position);
-            viewHolder.nameView.setText(currentHoliday.getName());
-        } else {
-            viewHolder.nameView.setText("No Name"); // TODO throw error instead?
+            Holiday holiday = holidays.get(position);
+
+            viewHolder.nameView.setText(holiday.getName());
+
+            /* Image stuff */
+            if (thumbnails != null) {
+                Long imageId = holiday.getImageId();
+                try {
+                    String imagePath = thumbnails.stream()
+                            .filter(image -> imageId.equals(image.getItemId())) // TODO equals may be bad?
+                            .findFirst().get()
+                            .getPath();
+                    Log.d("heh", String.valueOf(imageId));
+
+                    Bitmap imageBm = BitmapFactory.decodeFile(imagePath);
+
+                    viewHolder.imageView.setImageBitmap(imageBm);
+                } catch (NoSuchElementException e) {
+                    
+                }
+            }
         }
     }
 
@@ -81,4 +105,10 @@ public class HolidaysListAdaptor extends RecyclerView.Adapter<HolidaysListAdapto
         this.holidays = holidays;
         notifyDataSetChanged();
     }
+
+    public void setThumbnails(List<Image> thumbnails) {
+        this.thumbnails = thumbnails;
+        notifyDataSetChanged();
+    }
+
 }

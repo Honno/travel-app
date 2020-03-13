@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 
 import com.example.goofin.store.AppDatabase;
 import com.example.goofin.store.Holiday;
@@ -41,8 +42,7 @@ public class AppRepository {
     }
 
     public long insertHoliday(Holiday holiday) throws ExecutionException, InterruptedException {
-        return AppDatabase.databaseWriteExecutor.submit(() -> holidayDao.insert(holiday)).get();
-
+        return AppDatabase.databaseWriteExecutor.submit(() -> holidayDao.insert(holiday)).get(); // TODO get what?
     }
 
     public void updateHoliday(Holiday holiday) {
@@ -69,11 +69,23 @@ public class AppRepository {
         AppDatabase.databaseWriteExecutor.execute(() -> imageDao.insert(image));
     }
 
+//    public long insertImageAsync(Image image) throws ExecutionException, InterruptedException {
+//        return AppDatabase.databaseWriteExecutor.submit(() -> holidayDao.insert(holiday)).get();
+//    }
+
     public LiveData<List<Image>> getImagesFromHoliday(long holidayId) {
         return imageDao.getImagesFromHoliday(holidayId);
     }
 
     public LiveData<Note> getNote(long noteId) {
         return noteDao.getNote(noteId);
+    }
+
+    public LiveData<List<Image>> getThumbnails() {
+        return imageDao.getThumbnails();
+    }
+
+    public void setHolidayThumbnail(long holidayId, long imageId) {
+        AppDatabase.databaseWriteExecutor.execute(() -> holidayDao.setThumbnail(holidayId, imageId));
     }
 }

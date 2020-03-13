@@ -102,4 +102,8 @@ public class HolidayViewModel extends HolidayBaseViewModel {
         item.setHolidayId(holidayId);
         return item;
     }
+
+    public void setThumbnail(long imageId) {
+        appRepository.setHolidayThumbnail(holidayId, imageId);
+    }
 }

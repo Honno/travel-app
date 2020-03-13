@@ -36,15 +36,17 @@ public class HolidayFeedAdaptor extends RecyclerView.Adapter<HolidayFeedAdaptor.
 
     public interface ClickListener {
         void onClick(List<FeedItem> feed, int position, View view);
+        boolean onLongClick(List<FeedItem> feed, int position, View view);
     }
 
-    /* Setup viewhodlers */
+    /* Setup viewholders */
 
     public abstract class HolidayFeedViewHolder extends RecyclerView.ViewHolder {
         HolidayFeedViewHolder(@NonNull View itemView) {
             super(itemView);
 
             itemView.setOnClickListener(v -> clickListener.onClick(feed, getAdapterPosition(), v));
+            itemView.setOnLongClickListener(v -> clickListener.onLongClick(feed, getAdapterPosition(), v));
         }
 
         public abstract void onBind(FeedItem feedItem);

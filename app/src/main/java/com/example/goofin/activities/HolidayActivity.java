@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +40,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 
 public class HolidayActivity extends AppCompatActivity {
 
@@ -62,21 +64,36 @@ public class HolidayActivity extends AppCompatActivity {
         /* Setup adaptor */
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         final HolidayFeedAdaptor adaptor = new HolidayFeedAdaptor(this);
-        adaptor.setOnItemClickListener((feed, position, view) -> {
-            FeedItem item = feed.get(position);
-            FeedItem.TYPES type = item.getItemType();
-            Log.d("heh", String.valueOf(feed.size()));
-            Log.d("heh", String.valueOf(position));
-            Log.d("heh", String.valueOf(type));
-            // TODO click listeners
-            switch (type) {
-                case NOTE:
-                    Intent intent = new Intent(HolidayActivity.this, EditNoteActivity.class);
-                    intent.putExtra(EditNoteActivity.EXTRA_NOTE_ID, item.getItemId());
-                    startActivity(intent);
+        adaptor.setOnItemClickListener(new HolidayFeedAdaptor.ClickListener() {
+            @Override
+            public void onClick(List<FeedItem> feed, int position, View view) {
+                FeedItem item = feed.get(position);
+                FeedItem.TYPES type = item.getItemType();
+
+                switch (type) {
+                    case NOTE:
+                        Intent intent = new Intent(HolidayActivity.this, EditNoteActivity.class);
+                        intent.putExtra(EditNoteActivity.EXTRA_NOTE_ID, item.getItemId());
+                        startActivity(intent);
+                        break;
+                }
             }
 
+            @Override
+            public boolean onLongClick(List<FeedItem> feed, int position, View view) {
+                FeedItem item = feed.get(position);
+                FeedItem.TYPES type = item.getItemType();
+
+                switch (type) {
+                    case IMAGE:
+                        holidayViewModel.setThumbnail(item.getItemId());
+                }
+
+                return true;
+            }
         });
+
+
         recyclerView.setAdapter(adaptor);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 

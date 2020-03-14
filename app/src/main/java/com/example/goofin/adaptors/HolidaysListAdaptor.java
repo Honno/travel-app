@@ -77,8 +77,8 @@ public class HolidaysListAdaptor extends RecyclerView.Adapter<HolidaysListAdapto
             viewHolder.nameView.setText(holiday.getName());
 
             /* Image stuff */
-            if (thumbnails != null) {
-                Long imageId = holiday.getImageId();
+            Long imageId = holiday.getImageId();
+            if (imageId != null && thumbnails != null) {
                 try {
                     String imagePath = thumbnails.stream()
                             .filter(image -> imageId.equals(image.getItemId())) // TODO equals may be bad?

@@ -37,7 +37,6 @@
         <item name="colorOnSurface">@color/color_on_surface</item>
         <item name="colorOnError">@color/color_on_error</item>
 
-        <!-- TODO Material type attributes
         <item name="textAppearanceHeadline1">@style/TextAppearance.AppTheme.Headline1</item>
         <item name="textAppearanceHeadline2">@style/TextAppearance.AppTheme.Headline2</item>
         <item name="textAppearanceHeadline3">@style/TextAppearance.AppTheme.Headline3</item>
@@ -50,7 +49,7 @@
         <item name="textAppearanceBody2">@style/TextAppearance.AppTheme.Body2</item>
         <item name="textAppearanceButton">@style/TextAppearance.AppTheme.Button</item>
         <item name="textAppearanceCaption">@style/TextAppearance.AppTheme.Caption</item>
-        <item name="textAppearanceOverline">@style/TextAppearance.AppTheme.Overline</item> -->
+        <item name="textAppearanceOverline">@style/TextAppearance.AppTheme.Overline</item>
 
         <!--Material shape attributes-->
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.AppTheme.SmallComponent
@@ -62,8 +61,7 @@
         </item>
 
         <!--Component styles-->
-        <item name="materialAlertDialogTheme">@style/ThemeOverlay.MaterialComponents.Dialog.Alert
-        </item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.MaterialComponents.Dialog.Alert</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.AppTheme.BottomSheetDialog</item>
         <item name="navigationViewStyle">@style/Widget.AppTheme.NavigationView</item>
         <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.PrimarySurface</item>

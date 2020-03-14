@@ -25,4 +25,7 @@ public interface ImageDao {
 
     @Query("SELECT images.* FROM images, holidays WHERE images.item_id IN (holidays.image_id)")
     LiveData<List<Image>> getThumbnails();
+
+    @Query("SELECT * FROM images WHERE item_id=:imageId")
+    LiveData<Image> getImage(long imageId);
 }

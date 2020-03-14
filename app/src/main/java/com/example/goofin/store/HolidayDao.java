@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import java.util.List;
@@ -21,6 +22,10 @@ public interface HolidayDao {
 
     @Query("SELECT * FROM holidays WHERE holiday_id=:holidayId")
     LiveData<Holiday> getHoliday(long holidayId);
+
+    @Transaction
+    @Query("SELECT * FROM holidays WHERE holiday_id=:holidayId")
+    LiveData<HolidayAndThumbnail> getHolidayWithThumbnail(long holidayId);
 
     @Query("UPDATE holidays SET image_id=:imageId WHERE holiday_id=:holidayId")
     void setThumbnail(long holidayId, long imageId);

@@ -7,8 +7,10 @@ import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
+import com.example.goofin.store.Holiday;
 import com.example.goofin.store.holidayfeed.FeedItem;
 import com.example.goofin.store.holidayfeed.Image;
 import com.example.goofin.store.holidayfeed.Note;
@@ -26,6 +28,8 @@ public class HolidayViewModel extends HolidayBaseViewModel {
     private MediatorLiveData<List<FeedItem>> feed;
 
     private MediatorLiveData<Pair<LocalDate, LocalDate>> dates;
+
+    private LiveData<Image> thumbnail;
 
     public HolidayViewModel(@NonNull Application application, long holidayId) {
         super(application, holidayId);
@@ -106,4 +110,5 @@ public class HolidayViewModel extends HolidayBaseViewModel {
     public void setThumbnail(long imageId) {
         appRepository.setHolidayThumbnail(holidayId, imageId);
     }
+
 }

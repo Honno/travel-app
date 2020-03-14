@@ -5,9 +5,11 @@ import android.app.Application;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.goofin.store.AppDatabase;
 import com.example.goofin.store.Holiday;
+import com.example.goofin.store.HolidayAndThumbnail;
 import com.example.goofin.store.HolidayDao;
 import com.example.goofin.store.holidayfeed.Image;
 import com.example.goofin.store.holidayfeed.ImageDao;
@@ -87,5 +89,13 @@ public class AppRepository {
 
     public void setHolidayThumbnail(long holidayId, long imageId) {
         AppDatabase.databaseWriteExecutor.execute(() -> holidayDao.setThumbnail(holidayId, imageId));
+    }
+
+    public LiveData<Image> getImage(long imageId) {
+        return imageDao.getImage(imageId);
+    }
+
+    public LiveData<HolidayAndThumbnail> getHolidayWithThumbnail(long holidayId) {
+        return holidayDao.getHolidayWithThumbnail(holidayId);
     }
 }

@@ -7,12 +7,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,16 +48,11 @@ import java.util.List;
 public class HolidayActivity extends AppCompatActivity {
 
     public static final String EXTRA_HOLIDAY_ID = "com.example.goofin.EXTRA_HOLIDAY_ID";
-    private static final int REQUEST_CREATE_NOTE = 1;
-    private static final int REQUEST_IMAGE_CAPTURE = 2;
-    private static final int REQUEST_EDIT_NOTE = 3;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
 
     private HolidayViewModel holidayViewModel;
 
     private String photoPath;
-
-    private LocalDate startDate;
-    private LocalDate endDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +114,16 @@ public class HolidayActivity extends AppCompatActivity {
         //   https://stackoverflow.com/questions/26486730/in-android-app-toolbar-settitle-method-has-no-effect-application-name-is-shown/57635712#57635712
         CollapsingToolbarLayout toolbarLayout = findViewById(R.id.toolbar_layout);
         holidayViewModel.getName().observe(this, toolbarLayout::setTitle);
+        // Thumbnail image
+        ImageView thumbnail = findViewById(R.id.thumbnail);
+        holidayViewModel.getThumbnail().observe(this, image -> {
+            Log.d("heh", "hello");
+            if (image != null) {
+                Log.d("heh", image.getPath());
+                Bitmap bitmap = BitmapFactory.decodeFile(image.getPath());
+                thumbnail.setImageBitmap(bitmap);
+            }
+        });
 
         // TODO dates
 

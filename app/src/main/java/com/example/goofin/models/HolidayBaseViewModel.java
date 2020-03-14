@@ -5,12 +5,13 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import com.example.goofin.AppRepository;
 import com.example.goofin.store.Holiday;
+import com.example.goofin.store.HolidayAndThumbnail;
+import com.example.goofin.store.holidayfeed.Image;
 
 import java.time.LocalDate;
 
@@ -22,6 +23,7 @@ public abstract class HolidayBaseViewModel extends AndroidViewModel {
     protected MutableLiveData<String> name = new MutableLiveData();
     protected MutableLiveData<LocalDate> startDate = new MutableLiveData();
     protected MutableLiveData<LocalDate> endDate = new MutableLiveData();
+    protected MutableLiveData<Long> thumbnailId = new MutableLiveData<>();
 
     /* When you are creating a holiday */
 
@@ -33,13 +35,20 @@ public abstract class HolidayBaseViewModel extends AndroidViewModel {
 
     /* When you desire a specific holiday */
 
-    protected LiveData<Holiday> holiday;
+    protected LiveData<HolidayAndThumbnail> holidayWithThumbnail;
+    protected MutableLiveData<Holiday> holiday;
+    protected MutableLiveData<Image> thumbnail;
 
+    private Observer<HolidayAndThumbnail> holidayAndThumbnailObserver = holidayAndThumbnail -> {
+        holiday.setValue(holidayAndThumbnail.holiday);
+        thumbnail.setValue(holidayAndThumbnail.thumbnail);
+    };
     private Observer<Holiday> holidayObserver = holiday -> {
         if (holiday != null) {
             name.setValue(holiday.getName());
             startDate.setValue(holiday.getEndDate());
             endDate.setValue(holiday.getEndDate());
+            thumbnailId.setValue(holiday.getImageId());
         }
     };
 
@@ -48,14 +57,21 @@ public abstract class HolidayBaseViewModel extends AndroidViewModel {
 
         appRepository = new AppRepository(application);
 
-        holiday = appRepository.getHoliday(holidayId);
+        holiday = new MutableLiveData<>();
+        thumbnail = new MutableLiveData<>();
+
+        holidayWithThumbnail = appRepository.getHolidayWithThumbnail(holidayId);
+        holidayWithThumbnail.observeForever(holidayAndThumbnailObserver);
+
         holiday.observeForever(holidayObserver);
     }
 
     @Override
     protected void onCleared() {
-        if (holiday != null)
+        if (holiday != null) {
+            holidayWithThumbnail.removeObserver(holidayAndThumbnailObserver);
             holiday.removeObserver(holidayObserver);
+        }
         super.onCleared();
 
     }
@@ -72,6 +88,10 @@ public abstract class HolidayBaseViewModel extends AndroidViewModel {
 
     public LiveData<LocalDate> getEndDate() {
         return endDate;
+    }
+
+    public LiveData<Image> getThumbnail() {
+        return thumbnail;
     }
 }
 

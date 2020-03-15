@@ -41,4 +41,13 @@
     <!--Custom-->
     <style name="MaterialAlpha">0.54</style>
 
+    <style name="AppTheme.Holiday.ActionBar" parent="Theme.AppCompat">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+        <item name="actionMenuTextColor">@android:color/white</item>
+        <item name="android:titleTextColor">@android:color/white</item>
+        <item name="android:subtitleTextColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

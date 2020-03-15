@@ -1,6 +1,7 @@
 package com.example.goofin.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -105,7 +106,7 @@ public class HolidayActivity extends AppCompatActivity {
         holidayViewModel.getFeed().observe(this, adaptor::setFeed);
 
         /* Setup toolbar */
-        MaterialToolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -117,9 +118,7 @@ public class HolidayActivity extends AppCompatActivity {
         // Thumbnail image
         ImageView thumbnail = findViewById(R.id.thumbnail);
         holidayViewModel.getThumbnail().observe(this, image -> {
-            Log.d("heh", "hello");
             if (image != null) {
-                Log.d("heh", image.getPath());
                 Bitmap bitmap = BitmapFactory.decodeFile(image.getPath());
                 thumbnail.setImageBitmap(bitmap);
             }

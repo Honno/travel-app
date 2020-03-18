@@ -1,8 +1,10 @@
 package com.example.goofin.adaptors;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,12 +18,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.goofin.R;
 import com.example.goofin.store.Holiday;
 import com.example.goofin.store.holidayfeed.Image;
+import com.example.goofin.utils.Rendering;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 public class HolidaysListAdaptor extends RecyclerView.Adapter<HolidaysListAdaptor.HolidaysListViewHolder> {
-
     /* Implement onClick methods in adaptor owner */
 
     private ClickListener clickListener;
@@ -54,13 +59,14 @@ public class HolidaysListAdaptor extends RecyclerView.Adapter<HolidaysListAdapto
         }
     }
 
+    private final Context context;
     private final LayoutInflater layoutInflater;
     private List<Holiday> holidays;
     private List<Image> thumbnails;
 
     public HolidaysListAdaptor(Context context) {
+        this.context = context;
         layoutInflater = LayoutInflater.from(context);
-
     }
 
     @Override
@@ -80,15 +86,12 @@ public class HolidaysListAdaptor extends RecyclerView.Adapter<HolidaysListAdapto
             Long imageId = holiday.getImageId();
             if (imageId != null && thumbnails != null) {
                 try {
-                    String imagePath = thumbnails.stream()
+                    Uri uri = thumbnails.stream()
                             .filter(image -> imageId.equals(image.getItemId())) // TODO equals may be bad?
                             .findFirst().get()
-                            .getPath();
-                    Log.d("heh", String.valueOf(imageId));
+                            .getUri();
 
-                    Bitmap imageBm = BitmapFactory.decodeFile(imagePath);
-
-                    viewHolder.imageView.setImageBitmap(imageBm);
+                    viewHolder.imageView.setImageBitmap(Rendering.getBitmap(context, uri));
                 } catch (NoSuchElementException e) {
 
                 }

@@ -1,8 +1,12 @@
 package com.example.goofin.store.holidayfeed;
 
+import android.net.Uri;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+
+import java.net.URI;
 
 @Entity(tableName = "images")
 public class Image extends PlaceableHolidayItem {
@@ -13,18 +17,18 @@ public class Image extends PlaceableHolidayItem {
 
     @NonNull
     @ColumnInfo(name = "path")
-    private String path;
+    private Uri uri;
 
-    public Image(String path) {
-        this.path = path;
+    public Image(Uri uri) {
+        this.uri = uri;
     }
 
     @NonNull
-    public String getPath() {
-        return path;
+    public Uri getUri() {
+        return uri;
     }
 
-    public void setPath(@NonNull String path) {
-        this.path = path;
+    public void setUri(@NonNull Uri uri) {
+        this.uri = uri;
     }
 }

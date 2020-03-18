@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,10 +15,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.goofin.BuildConfig;
@@ -28,20 +27,18 @@ import com.example.goofin.activities.saveholiday.EditHolidayActivity;
 import com.example.goofin.adaptors.HolidayFeedAdaptor;
 import com.example.goofin.models.HolidayViewModel;
 import com.example.goofin.factories.HolidayViewModelFactory;
-import com.example.goofin.models.holidayfeed.EditNoteViewModel;
 import com.example.goofin.store.holidayfeed.FeedItem;
 import com.example.goofin.store.holidayfeed.Image;
-import com.example.goofin.store.holidayfeed.Note;
 import com.example.goofin.utils.Formatters;
+import com.example.goofin.utils.Rendering;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.Normalizer;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
@@ -50,10 +47,11 @@ public class HolidayActivity extends AppCompatActivity {
 
     public static final String EXTRA_HOLIDAY_ID = "com.example.goofin.EXTRA_HOLIDAY_ID";
     private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_SELECT_IMAGE = 2;
 
     private HolidayViewModel holidayViewModel;
 
-    private String photoPath;
+    private Uri photoUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,10 +116,8 @@ public class HolidayActivity extends AppCompatActivity {
         // Thumbnail image
         ImageView thumbnail = findViewById(R.id.thumbnail);
         holidayViewModel.getThumbnail().observe(this, image -> {
-            if (image != null) {
-                Bitmap bitmap = BitmapFactory.decodeFile(image.getPath());
-                thumbnail.setImageBitmap(bitmap);
-            }
+            if (image != null)
+                thumbnail.setImageBitmap(Rendering.getBitmap(getApplicationContext(), image.getUri()));
         });
 
         // TODO dates
@@ -149,8 +145,9 @@ public class HolidayActivity extends AppCompatActivity {
         // Reference fabs
         FloatingActionButton feedMenuButton = findViewById(R.id.feed_menu);
         FloatingActionButton takePhotoButton = findViewById(R.id.take_photo);
-//        FloatingActionButton addImageButton = findViewById(R.id.add_image);
+        FloatingActionButton addImageButton = findViewById(R.id.add_image);
         FloatingActionButton addNoteButton = findViewById(R.id.add_note);
+        FloatingActionButton addPlaceButton = findViewById(R.id.add_location);
         // Expanding fab menu
         feedMenuButton.setOnClickListener(v -> feedMenuButton.setExpanded(!feedMenuButton.isExpanded()));
         // Taking a photo
@@ -181,11 +178,26 @@ public class HolidayActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT);
             }
         });
+        // Add image from gallery
+        addImageButton.setOnClickListener(v -> {
+            Intent pickImageIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(pickImageIntent, REQUEST_SELECT_IMAGE);
+
+        });
         // Creating a note
         addNoteButton.setOnClickListener(v -> {
             Intent intent = new Intent(HolidayActivity.this, CreateNoteActivity.class);
             intent.putExtra(EXTRA_HOLIDAY_ID, holidayId);
             startActivity(intent);
+        });
+        // Creating a place
+        addPlaceButton.setOnClickListener(v -> {
+            Uri gmmIntentUri = Uri.parse("geo:latitude,longitude?q=query");
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+            if (mapIntent.resolveActivity(getPackageManager()) != null) {
+                startActivity(mapIntent);
+            }
         });
     }
 
@@ -196,7 +208,7 @@ public class HolidayActivity extends AppCompatActivity {
 
             case REQUEST_IMAGE_CAPTURE:
                 if (resultCode == RESULT_OK) {
-                    Image image = new Image(photoPath);
+                    Image image = new Image(photoUri);
 
                     holidayViewModel.insertImage(image);
                 } else {
@@ -204,6 +216,26 @@ public class HolidayActivity extends AppCompatActivity {
                             R.string.message_insert_feed_item_cancelled,
                             Toast.LENGTH_SHORT).show();
                 }
+                break;
+
+            case REQUEST_SELECT_IMAGE:
+                if (resultCode == RESULT_OK) {
+                    Uri uri = data.getData();
+                    if (uri != null) {
+                        Image image = new Image(uri);
+
+                        holidayViewModel.insertImage(image);
+                    } else {
+                        Toast.makeText(getApplicationContext(),
+                                R.string.message_unknown_error,
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(),
+                            R.string.message_insert_feed_item_cancelled,
+                            Toast.LENGTH_SHORT).show();
+                }
+                break;
         }
     }
 
@@ -224,7 +256,7 @@ public class HolidayActivity extends AppCompatActivity {
                 ".jpg",         /* suffix */
                 storageDir      /* directory */
         );
-        photoPath = image.getAbsolutePath();
+        photoUri = Uri.parse(image.toURI().toString());
 
         return image;
     }

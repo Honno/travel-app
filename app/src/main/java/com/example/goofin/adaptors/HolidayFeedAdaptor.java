@@ -1,5 +1,6 @@
 package com.example.goofin.adaptors;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,7 +17,11 @@ import com.example.goofin.R;
 import com.example.goofin.store.holidayfeed.FeedItem;
 import com.example.goofin.store.holidayfeed.Image;
 import com.example.goofin.store.holidayfeed.Note;
+import com.example.goofin.utils.Rendering;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -81,12 +86,12 @@ public class HolidayFeedAdaptor extends RecyclerView.Adapter<HolidayFeedAdaptor.
         public void onBind(FeedItem feedItem) {
             Image image = (Image) feedItem;
 
-            Bitmap bitmap = BitmapFactory.decodeFile(image.getPath());
-
-            imageView.setImageBitmap(bitmap);
+            imageView.setImageBitmap(Rendering.getBitmap(context, image.getUri()));
         }
 
     }
+
+    private Context context;
 
     /* Setup adaptor */
 
@@ -95,6 +100,7 @@ public class HolidayFeedAdaptor extends RecyclerView.Adapter<HolidayFeedAdaptor.
     private List<FeedItem> feed;
 
     public HolidayFeedAdaptor(Context context) {
+        this.context = context;
         layoutInflater = LayoutInflater.from(context);
     }
 

@@ -116,5 +116,7 @@
     <string name="end_date_hint">Change End Date</string>
     <string name="edit_start_date_hint"></string>
     <string name="edit_end_date_hint"></string>
+    <string name="button_make_thumbnail">Make Thumbnail</string>
+    <string name="button_delete_item">Remove</string>
 
 </resources>

@@ -33,7 +33,7 @@ public class CreateHolidayActivity extends CreateOrEditHolidayActivity {
     // Setup [ X  Create       ] toolbar
     @Override
     protected void onCreateToolbar(Toolbar toolbar) {
-        toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
+        toolbar.setNavigationIcon(R.drawable.ic_close_24dp);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(getResources().getString(R.string.toolbar_title_create_holiday));
         toolbar.setNavigationOnClickListener(v -> onBackPressed());

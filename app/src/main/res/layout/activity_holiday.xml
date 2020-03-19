@@ -49,7 +49,7 @@
         android:layout_margin="@dimen/keyline_4"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@drawable/ic_edit_white_24dp" />
+        app:srcCompat="@drawable/ic_edit_24dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -75,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:src="@drawable/ic_short_text_black_16dp"
+            android:src="@drawable/ic_short_text_24dp"
             app:fabCustomSize="@dimen/fab_mini_size" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -83,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:src="@drawable/ic_add_location_black_16dp"
+            android:src="@drawable/ic_add_location_24dp"
             app:fabCustomSize="@dimen/fab_mini_size" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -91,7 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:src="@drawable/ic_add_a_photo_black_16dp"
+            android:src="@drawable/ic_add_a_photo_24dp"
             app:fabCustomSize="@dimen/fab_mini_size" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -99,7 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:src="@drawable/ic_camera_black_16dp"
+            android:src="@drawable/ic_camera_24dp"
             app:fabCustomSize="@dimen/fab_mini_size" />
 
     </LinearLayout>
@@ -110,6 +110,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/keyline_4"
-        android:src="@drawable/ic_add_black_24dp" />
+        android:src="@drawable/ic_add_32dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

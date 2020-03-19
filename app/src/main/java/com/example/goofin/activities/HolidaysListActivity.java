@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.example.goofin.activities.saveholiday.CreateHolidayActivity;
 import com.example.goofin.adaptors.HolidaysListAdaptor;
 import com.example.goofin.models.HolidaysListViewModel;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,7 +56,7 @@ public class HolidaysListActivity extends AppCompatActivity {
         holidaysListViewModel.getAllHolidays().observe(this, adaptor::setHolidays);
         holidaysListViewModel.getAllHolidayThumbnails().observe(this, adaptor::setThumbnails);
 
-        FloatingActionButton fab = findViewById(R.id.add_holiday);
+        ExtendedFloatingActionButton fab = findViewById(R.id.add_holiday);
         fab.setOnClickListener(view -> {
             Intent intent = new Intent(HolidaysListActivity.this, CreateHolidayActivity.class);
             intent.setAction(Intent.ACTION_INSERT);

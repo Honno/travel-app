@@ -118,5 +118,7 @@
     <string name="edit_end_date_hint"></string>
     <string name="button_make_thumbnail">Make Thumbnail</string>
     <string name="button_delete_item">Remove</string>
+    <string name="label_add_holiday">Create Holiday</string>
+    <string name="label_add_feed_item">Add To Timeline</string>
 
 </resources>

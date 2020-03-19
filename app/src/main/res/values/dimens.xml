@@ -32,7 +32,7 @@
     <dimen name="alpha_emphasis_disabled">@dimen/material_emphasis_disabled</dimen>
 
     <!--Custom-->
-    <dimen name="fab_mini_size">24dp</dimen>
+    <dimen name="fab_mini_size">32dp</dimen>
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="holiday_summary_card_height">200dp</dimen>
     <dimen name="holiday_summary_image_height">150dp</dimen>

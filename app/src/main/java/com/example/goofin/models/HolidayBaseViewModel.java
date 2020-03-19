@@ -40,8 +40,10 @@ public abstract class HolidayBaseViewModel extends AndroidViewModel {
     protected MutableLiveData<Image> thumbnail;
 
     private Observer<HolidayAndThumbnail> holidayAndThumbnailObserver = holidayAndThumbnail -> {
-        holiday.setValue(holidayAndThumbnail.holiday);
-        thumbnail.setValue(holidayAndThumbnail.thumbnail);
+        if (holidayAndThumbnail != null) {
+            holiday.setValue(holidayAndThumbnail.holiday);
+            thumbnail.setValue(holidayAndThumbnail.thumbnail);
+        }
     };
     private Observer<Holiday> holidayObserver = holiday -> {
         if (holiday != null) {

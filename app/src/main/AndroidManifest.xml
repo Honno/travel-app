@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.goofin">
+    package="com.matthewb.travelapp">
 
     <uses-feature android:name="android.hardware.camera"
         android:required="false" />
@@ -16,27 +16,27 @@
         android:theme="@style/AppTheme.DayNight">
         <!-- TODO Intent filters -->
         <activity
-            android:name=".activities.holidayfeed.CreateNoteActivity"
+            android:name="com.matthewb.travelapp.activities.holidayfeed.CreateNoteActivity"
             android:label="@string/title_activity_note_create"
-            android:parentActivityName=".activities.holidayfeed.CreateNoteActivity" />
+            android:parentActivityName="com.matthewb.travelapp.activities.holidayfeed.CreateNoteActivity" />
         <activity
-            android:name=".activities.holidayfeed.EditNoteActivity"
+            android:name="com.matthewb.travelapp.activities.holidayfeed.EditNoteActivity"
             android:label="@string/title_activity_note_edit"
-            android:parentActivityName=".activities.holidayfeed.EditNoteActivity" />
+            android:parentActivityName="com.matthewb.travelapp.activities.holidayfeed.EditNoteActivity" />
         <activity
-            android:name=".activities.saveholiday.CreateHolidayActivity"
+            android:name="com.matthewb.travelapp.activities.saveholiday.CreateHolidayActivity"
             android:label="@string/toolbar_title_create_holiday"
-            android:parentActivityName="com.example.goofin.activities.HolidaysListActivity" />
+            android:parentActivityName="com.matthewb.travelapp.activities.HolidaysListActivity" />
         <activity
-            android:name=".activities.saveholiday.EditHolidayActivity"
+            android:name="com.matthewb.travelapp.activities.saveholiday.EditHolidayActivity"
             android:label="@string/toolbar_title_edit_holiday"
-            android:parentActivityName="com.example.goofin.activities.HolidayActivity" />
+            android:parentActivityName="com.matthewb.travelapp.activities.HolidayActivity" />
         <activity
-            android:name=".activities.HolidayActivity"
+            android:name="com.matthewb.travelapp.activities.HolidayActivity"
             android:label="@string/title_activity_holiday"
-            android:parentActivityName="com.example.goofin.activities.HolidaysListActivity"></activity>
+            android:parentActivityName="com.matthewb.travelapp.activities.HolidaysListActivity"></activity>
         <activity
-            android:name=".activities.HolidaysListActivity"
+            android:name="com.matthewb.travelapp.activities.HolidaysListActivity"
             android:label="@string/title_activity_holidays_lists">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

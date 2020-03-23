@@ -119,14 +119,13 @@ public class HolidayActivity extends AppCompatActivity {
 
         /* Setup views */
         // Update subtitle
-        holidayViewModel.getDates().observe(this, dates -> {
-            if (dates != null) {
-                DateTimeFormatter fmt = Formatters.getDateFormatter();
-                String start = dates.first == null ? "" : dates.first.format(fmt);
-                String end = dates.second == null ? "" : dates.second.format(fmt);
-                toolbar.setSubtitle("hello"); // TODO subtitle with date range
-            }
-        });
+//        holidayViewModel.getDates().observe(this, dates -> {
+//            if (dates != null) {
+//                DateTimeFormatter fmt = Formatters.getDateFormatter();
+//                String start = dates.first == null ? "" : dates.first.format(fmt);
+//                String end = dates.second == null ? "" : dates.second.format(fmt);
+//            }
+//        });
         // Edit holiday
         FloatingActionButton editHolidayButton = findViewById(R.id.edit_holiday);
         editHolidayButton.setOnClickListener(view -> {
@@ -186,14 +185,14 @@ public class HolidayActivity extends AppCompatActivity {
             startActivity(intent);
         });
         // Creating a place
-        addPlaceButton.setOnClickListener(v -> {
-            Uri gmmIntentUri = Uri.parse("geo:latitude,longitude?q=query");
-            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-            mapIntent.setPackage("com.google.android.apps.maps");
-            if (mapIntent.resolveActivity(getPackageManager()) != null) {
-                startActivity(mapIntent);
-            }
-        });
+//        addPlaceButton.setOnClickListener(v -> {
+//            Uri gmmIntentUri = Uri.parse("geo:latitude,longitude?q=query");
+//            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+//            mapIntent.setPackage("com.google.android.apps.maps");
+//            if (mapIntent.resolveActivity(getPackageManager()) != null) {
+//                startActivity(mapIntent);
+//            }
+//        });
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -5,7 +5,7 @@ An app that helps you journal your travels, made for my /CS3040 Mobile Design an
 I could of hacked together functionality to meet more of the design requirements for my submission, but I don't regret learning best practices for Android development, as well as exploring advanced features—namely the heterogeneous timeline—which would be necessary for a truly unique and fun end-user experience.
 
 * Software engineering report
-  The following text is part of my development docs I made for my report. It was made using ~org-mode~, so unfortunately it breaks a bit due the restrictions of GitHub-flavoured ~.org~ markup.
+  The following text is part of my development docs I made for my report. It was made using ~org-mode~, so unfortunately it breaks a bit due to the restrictions of GitHub-flavoured ~.org~ markup.
 
 ** MVVM
    Travel Journal uses the Model-View-ViewModel architecture patterns, where a View drives data from a respective ViewModel, as opposed to directly from the Model. ViewModels persist with their respective View's life-cycle in the application.
